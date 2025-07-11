@@ -3,15 +3,48 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useAuth } from "@/hooks/useAuth/useAuth";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router";
+import { toast } from "sonner";
 import GoogleSignIn from "../SocialLogin/GoogleSignIn";
 
 const Login = ({ className, ...props }: React.ComponentProps<"div">) => {
+  const { signIn, setLoading } = useAuth();
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    alert("login");
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    signIn(email, password)
+      .then(() => {
+        toast.success("Login Successful", {
+          description: "You can now access exclusive features",
+        });
+        setLoading(false);
+      })
+      .catch((error) => {
+        const code = error.code;
+        let message = "";
+
+        if (code === "auth/invalid-email") {
+          message = "Invalid email";
+        } else if (code === "auth/user-not-found") {
+          message = "No user found with this email";
+        } else if (code === "auth/wrong-password") {
+          message = "Incorrect password";
+        } else if (code === "auth/too-many-requests") {
+          message = "Too many attempts. Try again later";
+        } else {
+          message = "Something went wrong";
+          console.error(error);
+        }
+
+        toast.error("Login Failed", { description: message });
+        setLoading(false);
+      });
   };
 
   return (
@@ -31,6 +64,7 @@ const Login = ({ className, ...props }: React.ComponentProps<"div">) => {
                 <Input
                   id="email"
                   type="email"
+                  name="email"
                   placeholder="m@example.com"
                   required
                 />
@@ -45,13 +79,13 @@ const Login = ({ className, ...props }: React.ComponentProps<"div">) => {
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" required />
+                <Input name="password" id="password" type="password" required />
               </div>
               <Button type="submit" className="w-full ">
                 Login
               </Button>
               <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
-                <span className="bg-card text-muted-foreground relative z-10 px-2">
+                <span className="bg-card text-muted-foreground relative px-2">
                   Or continue with
                 </span>
               </div>
