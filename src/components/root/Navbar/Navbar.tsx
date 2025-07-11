@@ -56,17 +56,21 @@ export function Navbar() {
 
   const authButtons = (
     <div className="flex gap-1">
-      <Button
-        variant="outline"
-        className=" border-primary duration-75  "
-        size="sm"
-      >
-        <Link to={"/auth/register"}>Register</Link>
-      </Button>
+      <Link to={"/auth/register"}>
+        <Button
+          variant="outline"
+          className=" border-primary duration-75  "
+          size="sm"
+        >
+          Register
+        </Button>
+      </Link>
 
-      <Button variant="default" className="text-white" size="sm">
-        <Link to={"/auth/login"}>Login</Link>
-      </Button>
+      <Link to={"/auth/login"}>
+        <Button variant="default" className="text-white" size="sm">
+          Login
+        </Button>
+      </Link>
     </div>
   );
 
