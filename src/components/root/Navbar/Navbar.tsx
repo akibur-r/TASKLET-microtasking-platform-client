@@ -34,23 +34,24 @@ import { Separator } from "@/components/ui/separator";
 import { useAuth } from "@/hooks/useAuth/useAuth";
 import { ArrowUpRight, Menu } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 import { ModeToggle } from "../ModeToggle/ModeToggle";
 
 export function Navbar() {
-  const { loading, user } = useAuth();
+  const { loading, user, logOut } = useAuth();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const handleSignOut = () => {
-    // logOut()
-    //   .then(() => {
-    //     toast.success("Signed Out");
-    //     setDrawerOpen(false);
-    //   })
-    //   .catch(() => {
-    //     toast.error("Sign Out Failed", {
-    //       description: "Something went wrong while signing out.",
-    //     });
-    //   });
+    logOut()
+      .then(() => {
+        toast.success("Signed Out");
+        setDrawerOpen(false);
+      })
+      .catch(() => {
+        toast.error("Sign Out Failed", {
+          description: "Something went wrong while signing out.",
+        });
+      });
   };
 
   const authButtons = (
