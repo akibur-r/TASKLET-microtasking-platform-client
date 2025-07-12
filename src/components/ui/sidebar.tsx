@@ -1,6 +1,6 @@
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-import { Grip, PanelLeftIcon, PanelRightIcon } from "lucide-react";
+import { Grip, PanelLeftClose, PanelRightIcon } from "lucide-react";
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";
@@ -273,7 +273,7 @@ function SidebarTrigger({
       {...props}
     >
       {open ? (
-        <PanelLeftIcon className="hidden md:block" />
+        <PanelLeftClose className="hidden md:block" />
       ) : (
         <PanelRightIcon className="hidden md:block" />
       )}
