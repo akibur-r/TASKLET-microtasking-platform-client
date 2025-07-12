@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Bell } from "lucide-react";
 import { Outlet } from "react-router";
+import { Toaster } from "sonner";
 
 export default function DashboardLayout() {
   return (
@@ -50,6 +51,8 @@ export default function DashboardLayout() {
           </div>
         </SidebarInset>
       </SidebarProvider>
+
+      <Toaster position="top-right" richColors />
     </>
   );
 }

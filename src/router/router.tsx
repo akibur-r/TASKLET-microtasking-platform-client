@@ -1,6 +1,7 @@
 import Home from "@/components/auth/Index/Home";
 import Login from "@/components/auth/Login/Login";
 import Register from "@/components/auth/Register/Register";
+import AddTask from "@/components/dashboard/buyer/AddTask/AddTask";
 import DashboardOverview from "@/components/dashboard/DashboardOverview/DashboardOverview";
 import ManageUsers from "@/components/dashboard/ManageUsers/ManageUsers";
 import AuthLayout from "@/layouts/AuthLayout";
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/manage-users",
         Component: ManageUsers,
+      },
+      {
+        path: "/dashboard/add-task",
+        Component: AddTask,
       },
     ],
   },
