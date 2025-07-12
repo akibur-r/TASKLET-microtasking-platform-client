@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { navItems } from "@/utils/navItems";
 
-import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router";
 
 import {
@@ -12,47 +11,19 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-
 import CoinBalanceBadge from "@/components/shared/CoinBalanceBadge/CoinBalanceBadge";
 import LoaderSpinner from "@/components/shared/LoaderSpinner/LoaderSpinner";
 import Logo from "@/components/shared/Logo/Logo";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import ProfileDropdown from "@/components/shared/ProfileDropdown/ProfileDropdown";
 import { Separator } from "@/components/ui/separator";
 import { useAuth } from "@/hooks/useAuth/useAuth";
 import { ArrowUpRight, Menu } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
 import { ModeToggle } from "../ModeToggle/ModeToggle";
 
 export function Navbar() {
-  const { loading, user, logOut } = useAuth();
+  const { loading, user } = useAuth();
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const handleSignOut = () => {
-    logOut()
-      .then(() => {
-        toast.success("Signed Out");
-        setDrawerOpen(false);
-      })
-      .catch(() => {
-        toast.error("Sign Out Failed", {
-          description: "Something went wrong while signing out.",
-        });
-      });
-  };
 
   const authButtons = (
     <div className="flex gap-1">
@@ -72,44 +43,6 @@ export function Navbar() {
         </Button>
       </Link>
     </div>
-  );
-
-  const profileDropDown = (
-    <DropdownMenu dir="rtl" modal={false}>
-      <Tooltip>
-        <TooltipTrigger asChild className="cursor-pointer rounded-full">
-          <DropdownMenuTrigger className="outline-none flex">
-            <Avatar className="size-9 rounded-full border-4 border-primary/40 hover:border-primary/30">
-              <AvatarImage
-                src={user?.photoURL || ""}
-                className="object-cover"
-              />
-              <AvatarFallback>
-                {user?.displayName?.toUpperCase()[0]}
-              </AvatarFallback>
-            </Avatar>
-          </DropdownMenuTrigger>
-        </TooltipTrigger>
-        <TooltipContent className="hidden lg:block">
-          <p>Click to show menu</p>
-        </TooltipContent>
-      </Tooltip>
-      <DropdownMenuContent className="mr-4">
-        <DropdownMenuLabel className="text-left">
-          {user?.displayName && user.displayName}
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-
-        <DropdownMenuItem
-          variant="destructive"
-          className="cursor-pointer flex items-center"
-          onClick={handleSignOut}
-        >
-          Logout
-          <FiLogOut />
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
   );
 
   return (
@@ -141,7 +74,7 @@ export function Navbar() {
           ) : user ? (
             <span className="flex gap-2">
               <CoinBalanceBadge />
-              {profileDropDown}
+              <ProfileDropdown setDrawerOpen={setDrawerOpen} />
             </span>
           ) : (
             authButtons
@@ -192,7 +125,7 @@ export function Navbar() {
                 {loading ? (
                   <LoaderSpinner className="size-4" />
                 ) : user ? (
-                  profileDropDown
+                  <ProfileDropdown setDrawerOpen={setDrawerOpen} />
                 ) : (
                   authButtons
                 )}
