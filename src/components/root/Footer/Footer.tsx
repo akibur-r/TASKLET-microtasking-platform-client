@@ -3,10 +3,14 @@ import { BsTwitterX } from "react-icons/bs";
 import { FiFacebook, FiLinkedin } from "react-icons/fi";
 import { Link } from "react-router";
 
-const Footer = () => {
+interface FooterProps {
+  className?: string;
+}
+
+const Footer = ({ className = "" }: FooterProps) => {
   return (
-    <footer className="max-w-screen-xl mx-auto px-4 py-2 flex flex-col gap-4">
-      <div className=" flex flex-col md:flex-row gap-y-4 justify-between items-center">
+    <footer className={`mx-auto px-4 py-2 flex flex-col gap-4 ${className}`}>
+      <div className="flex flex-col md:flex-row gap-y-4 justify-between items-center">
         <div className="h-14">
           <Logo showText />
         </div>

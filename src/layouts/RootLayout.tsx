@@ -15,7 +15,7 @@ const RootLayout = () => {
           <Outlet />
         </div>
       </div>
-      <Footer />
+      <Footer className="max-w-screen-xl" />
 
       <Toaster position="top-right" richColors />
     </>
