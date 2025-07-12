@@ -9,7 +9,7 @@ const RootLayout = () => {
     <>
       <ScrollRestoration />
       <RootBackground />
-      <div className="min-h-screen flex flex-col relative">
+      <div className="min-h-screen flex flex-col relative font-primary">
         <Navbar />
         <div className="flex-1 scroll-mt-6">
           <Outlet />

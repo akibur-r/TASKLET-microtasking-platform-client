@@ -27,6 +27,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
+import CoinBalanceBadge from "@/components/shared/CoinBalanceBadge/CoinBalanceBadge";
 import LoaderSpinner from "@/components/shared/LoaderSpinner/LoaderSpinner";
 import Logo from "@/components/shared/Logo/Logo";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -40,7 +41,6 @@ import { ModeToggle } from "../ModeToggle/ModeToggle";
 export function Navbar() {
   const { loading, user, logOut } = useAuth();
   const [drawerOpen, setDrawerOpen] = useState(false);
-
   const handleSignOut = () => {
     logOut()
       .then(() => {
@@ -111,6 +111,7 @@ export function Navbar() {
       </DropdownMenuContent>
     </DropdownMenu>
   );
+
   return (
     <header className="w-full border-b bg-secondary text-foreground sticky top-0 z-20">
       <div className="mx-auto max-w-screen-xl px-4 py-1 flex items-center justify-between">
@@ -138,14 +139,18 @@ export function Navbar() {
           {loading ? (
             <LoaderSpinner className="size-4" />
           ) : user ? (
-            profileDropDown
+            <span className="flex gap-2">
+              <CoinBalanceBadge />
+              {profileDropDown}
+            </span>
           ) : (
             authButtons
           )}
           <ModeToggle />
         </div>
 
-        <div className="md:hidden">
+        <div className="md:hidden flex gap-2">
+          <CoinBalanceBadge />
           <Drawer
             open={drawerOpen}
             onOpenChange={setDrawerOpen}

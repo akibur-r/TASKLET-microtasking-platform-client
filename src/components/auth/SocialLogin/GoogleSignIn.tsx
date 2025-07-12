@@ -1,4 +1,4 @@
-import useAuthUserApi from "@/api/authUserApi";
+import useAuthUserApi from "@/api/useAuthUserApi";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth/useAuth";
 import { FcGoogle } from "react-icons/fc";

@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   deleteUser,
   getAuth,
+  getIdToken,
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -34,6 +35,7 @@ interface AuthContextType {
   updateUser: (data: UpdateProfileData) => Promise<void>;
   deleteUserFromFirebase: () => Promise<void>;
   logOut: () => Promise<void>;
+  token: string | null;
 }
 
 // Create context
@@ -49,6 +51,7 @@ interface Props {
 const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [token, setToken] = useState<string | null>(null);
 
   const createUser = (email: string, password: string) => {
     setLoading(true);
@@ -85,8 +88,12 @@ const AuthProvider = ({ children }: Props) => {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+      if (currentUser) {
+        const newToken = await getIdToken(currentUser);
+        setToken(newToken);
+      }
       setLoading(false);
     });
     return () => unsubscribe();
@@ -103,6 +110,7 @@ const AuthProvider = ({ children }: Props) => {
     updateUser,
     deleteUserFromFirebase,
     logOut,
+    token,
   };
 
   return (

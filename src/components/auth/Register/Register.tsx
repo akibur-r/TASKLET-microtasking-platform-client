@@ -1,4 +1,4 @@
-import useAuthUserApi from "@/api/authUserApi";
+import useAuthUserApi from "@/api/useAuthUserApi";
 import RegisterVector from "@/assets/vectors/register.svg";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";

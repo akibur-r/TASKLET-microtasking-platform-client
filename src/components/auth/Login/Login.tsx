@@ -5,12 +5,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks/useAuth/useAuth";
 import { cn } from "@/lib/utils";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 import GoogleSignIn from "../SocialLogin/GoogleSignIn";
 
 const Login = ({ className, ...props }: React.ComponentProps<"div">) => {
   const { signIn, setLoading } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -23,7 +26,7 @@ const Login = ({ className, ...props }: React.ComponentProps<"div">) => {
         toast.success("Login Successful", {
           description: "You can now access exclusive features",
         });
-        setLoading(false);
+        navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((error) => {
         const code = error.code;

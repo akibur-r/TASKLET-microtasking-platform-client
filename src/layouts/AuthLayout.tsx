@@ -7,7 +7,7 @@ const AuthLayout = () => {
   return (
     <>
       <ScrollRestoration />
-      <div className="bg-muted flex min-h-svh flex-col">
+      <div className="bg-muted flex min-h-svh flex-col font-primary">
         <header className="flex justify-between items-center p-4 w-full max-w-sm md:max-w-3xl mx-auto">
           <div className="h-16">
             <Logo showText />
