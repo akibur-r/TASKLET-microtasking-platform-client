@@ -11,7 +11,7 @@ const RootLayout = () => {
       <RootBackground />
       <div className="min-h-screen flex flex-col relative font-primary">
         <Navbar />
-        <div className="flex-1 scroll-mt-6">
+        <div className="flex-1 scroll-mt-6 pb-8">
           <Outlet />
         </div>
       </div>
