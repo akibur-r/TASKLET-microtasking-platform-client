@@ -1,5 +1,11 @@
+import HeroSlider from "@/components/homepage/HeroSlider/HeroSlider";
+
 const HomePage = () => {
-  return <div>home</div>;
+  return (
+    <div>
+      <HeroSlider />
+    </div>
+  );
 };
 
 export default HomePage;
