@@ -17,15 +17,13 @@ const GoogleSignIn = () => {
         const email = res.user.email;
 
         addUserPromise({ email: email, role: "buyer" })
-          .then((res) => {
-            console.log(res);
+          .then(() => {
             toast.success("Signed In.", {
               description: "You can now access exclusive features.",
             });
+            const from = location.state?.from?.pathname || "/";
+            navigate(from);
             setLoading(false);
-            navigate(
-              `${location ? (location.state ? location.state : "/") : "/"}`
-            );
           })
           .catch(() => {
             toast.error("Google Sign In Failed", {

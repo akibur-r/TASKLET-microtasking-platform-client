@@ -2,8 +2,10 @@ import Home from "@/components/auth/Index/Home";
 import Login from "@/components/auth/Login/Login";
 import Register from "@/components/auth/Register/Register";
 import AuthLayout from "@/layouts/AuthLayout";
+import DashboardLayout from "@/layouts/DashboardLayout";
 import RootLayout from "@/layouts/RootLayout";
 import HomePage from "@/pages/HomePage/HomePage";
+import PrivateRouteProvider from "@/providers/PrivateRouteProvider/PrivateRouteProvider";
 import { createBrowserRouter } from "react-router";
 
 export const router = createBrowserRouter([
@@ -14,6 +16,14 @@ export const router = createBrowserRouter([
       {
         index: true,
         Component: HomePage,
+      },
+      {
+        path: "/dashboard",
+        element: (
+          <PrivateRouteProvider>
+            <DashboardLayout />
+          </PrivateRouteProvider>
+        ),
       },
     ],
   },
@@ -26,11 +36,11 @@ export const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path: "login",
+        path: "/auth/login",
         Component: Login,
       },
       {
-        path: "register",
+        path: "/auth/register",
         Component: Register,
       },
     ],

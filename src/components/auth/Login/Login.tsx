@@ -26,7 +26,9 @@ const Login = ({ className, ...props }: React.ComponentProps<"div">) => {
         toast.success("Login Successful", {
           description: "You can now access exclusive features",
         });
-        navigate(`${location.state ? location.state : "/"}`);
+        const from = location.state?.from?.pathname || "/";
+        navigate(from);
+        setLoading(false);
       })
       .catch((error) => {
         const code = error.code;
