@@ -1,19 +1,13 @@
 import useUserApi from "@/api/useUserApi";
 import { useAuth } from "@/hooks/useAuth/useAuth";
+import type { dbUserType } from "@/types/dbUserType/dbUserType";
 import { createContext, useEffect, useState, type ReactNode } from "react";
 
 // Define shape of user info (customize according to your backend)
-interface dbUser {
-  _id?: string;
-  name: string;
-  email: string;
-  role: string;
-  coinBalance: number;
-}
 
 interface DBUserContextType {
-  dbUser: dbUser | null;
-  setDBUser: (info: dbUser | null) => void;
+  dbUser: dbUserType | null;
+  setDBUser: (info: dbUserType | null) => void;
   dbUserLoading: boolean;
 }
 
@@ -66,7 +60,7 @@ const DBUserProvider = ({ children }: Props) => {
   const value: DBUserContextType = {
     dbUser,
     setDBUser,
-    dbUserLoading
+    dbUserLoading,
   };
 
   return (

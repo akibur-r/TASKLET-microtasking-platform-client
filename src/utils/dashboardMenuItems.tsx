@@ -9,6 +9,7 @@ import {
   ShoppingBag,
   Ungroup,
   UserCog,
+  X,
 } from "lucide-react";
 
 export const dashboardMenuItems = {
@@ -76,6 +77,13 @@ export const dashboardMenuItems = {
       title: "Manage Tasks",
       url: "/dashboard/manage-tasks",
       icon: ListTodo,
+    },
+  ],
+  default: [
+    {
+      title: "Invalid Access",
+      url: "/dashboard",
+      icon: X,
     },
   ],
 };

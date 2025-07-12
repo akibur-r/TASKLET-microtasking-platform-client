@@ -2,6 +2,7 @@ import { ChevronsUpDown, LogOut } from "lucide-react";
 
 import { ModeToggle } from "@/components/root/ModeToggle/ModeToggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,17 +18,19 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useAuth } from "@/hooks/useAuth/useAuth";
+import { useDBUser } from "@/hooks/useDBUser/useDBUser";
 import useSignOut from "@/hooks/useSignOut/useSignOut";
 
 export function DashboardUserMenu() {
   const { isMobile } = useSidebar();
   const { user } = useAuth();
   const handleSignOut = useSignOut();
+  const { dbUser } = useDBUser();
 
   return (
     <SidebarMenu>
       <SidebarMenuItem>
-        <DropdownMenu>
+        <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
@@ -57,6 +60,9 @@ export function DashboardUserMenu() {
             sideOffset={4}
           >
             <DropdownMenuLabel className="p-0 font-normal">
+              <Badge className="bg-primary/20 border border-primary/50">
+                {dbUser?.role}
+              </Badge>
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage

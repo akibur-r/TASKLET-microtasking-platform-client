@@ -21,7 +21,7 @@ export default function DashboardLayout() {
         <DashboardSidebar />
         <SidebarInset className="relative ">
           <div className="min-h-screen flex flex-col">
-            <header className="flex h-12 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-10 sticky top-0 z-30 bg-background py-7">
+            <header className="flex h-12 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-10 sticky top-0 z-30 bg-background py-7 border-b">
               <div className="w-full flex items-center gap-2 px-4">
                 <SidebarTrigger className="-ml-1" />
                 <Separator

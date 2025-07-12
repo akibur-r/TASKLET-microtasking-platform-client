@@ -1,5 +1,5 @@
 import useAxiosOpen from "@/hooks/useAxiosOpen/useAxiosOpen";
-import type { UserType } from "@/types/UserType/UserType";
+import type { UserType } from "@/types/dbUserType/dbUserType";
 
 const useAuthUserApi = () => {
   const axiosOpen = useAxiosOpen();
