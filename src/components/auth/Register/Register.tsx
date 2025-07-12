@@ -52,7 +52,10 @@ const Register = ({ className, ...props }: React.ComponentProps<"div">) => {
     const name = formData.get("name") as string;
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
-    const role = formData.get("role") as string;
+    const rawRole = formData.get("role");
+    const role = (["admin", "buyer", "worker"].includes(rawRole as string)
+  ? rawRole
+  : "default") as "admin" | "buyer" | "worker" | "default";
     const photoFile = formData.get("photo") as File;
 
     if (!name) return toast.error("You must provide a name");

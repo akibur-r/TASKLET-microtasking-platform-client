@@ -22,7 +22,7 @@ const DBUserProvider = ({ children }: Props) => {
   const { user, token, loading, setLoading } = useAuth();
   const { getUserInfoPromise } = useUserApi();
 
-  const [dbUser, setDBUser] = useState<dbUser | null>(null);
+  const [dbUser, setDBUser] = useState<dbUserType | null>(null);
   const [dbUserLoading, setDBUserLoading] = useState<boolean>(true);
 
   useEffect(() => {
