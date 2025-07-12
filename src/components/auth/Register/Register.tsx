@@ -1,5 +1,7 @@
 import useAuthUserApi from "@/api/useAuthUserApi";
 import RegisterVector from "@/assets/vectors/register.svg";
+import LoaderSpinner from "@/components/shared/LoaderSpinner/LoaderSpinner";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -13,6 +15,9 @@ import {
 } from "@/components/ui/select";
 import { useAuth } from "@/hooks/useAuth/useAuth";
 import { cn } from "@/lib/utils";
+import { uploadToImgBB } from "@/utils/functions/uploadToImgBB";
+import { Upload } from "lucide-react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 
@@ -22,39 +27,54 @@ const Register = ({ className, ...props }: React.ComponentProps<"div">) => {
   const { addUserPromise } = useAuthUserApi();
   const navigate = useNavigate();
 
-  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
+  const [uploading, setUploading] = useState(false);
+  const [photoURL, setPhotoURL] = useState<string | null>(null);
+
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    const url = await uploadToImgBB(file);
+
+    if (url) {
+      setPhotoURL(url);
+    } else {
+      alert("Failed to upload image.");
+    }
+    setUploading(false);
+  };
+
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const { name, photoURL, email, password, role } = Object.fromEntries(
-      new FormData(e.currentTarget)
-    ) as Record<string, string>;
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    const role = formData.get("role") as string;
+    const photoFile = formData.get("photo") as File;
 
-    if (!name) {
-      toast.error("You must provide a name");
-      return;
-    }
+    if (!name) return toast.error("You must provide a name");
+    if (!email) return toast.error("You must provide a valid email");
+    if (password.length < 6)
+      return toast.error("Password must be at least 6 characters");
+    if (!role) return toast.error("You must select a role");
+    if (!photoFile || photoFile.size === 0)
+      return toast.error("You must upload a profile picture");
+
+    setLoading(true);
+
     if (!photoURL) {
-      toast.error("You must provide a Profile Picture URL");
-      return;
-    }
-    if (!email) {
-      toast.error("You must provide a valid email");
-      return;
-    }
-    if (password.length < 6) {
-      toast.error("Password must be at least 6 characters long");
-      return;
-    }
-    if (!role) {
-      toast.error("You must select a role");
-      return;
+      setLoading(false);
+      return toast.error("Failed to upload profile picture");
     }
 
     createUser(email, password)
       .then(() => {
         updateUser({ displayName: name, photoURL: photoURL })
           .then(() => {
-            addUserPromise({ email: email, role: role })
+            addUserPromise({ email, role })
               .then(() => {
                 toast.success("Account created successfully", {
                   description: "You can now access exclusive contents.",
@@ -63,30 +83,20 @@ const Register = ({ className, ...props }: React.ComponentProps<"div">) => {
                 navigate("/");
               })
               .catch(() => {
-                deleteUserFromFirebase()
-                  .then(() => {
-                    toast.error("Something Went Wrong", {
-                      description:
-                        "There was a problem while creating your account.",
-                    });
-                  })
-                  .catch(() => {});
-                setLoading(false);
+                deleteUserFromFirebase().finally(() => {
+                  toast.error("Something went wrong while saving your data.");
+                  setLoading(false);
+                });
               });
           })
           .catch(() => {
-            // console.log(err);
             setLoading(false);
-            toast.error("Something Went Wrong", {
-              description: "There was a problem while creating your account.",
-            });
+            toast.error("Failed to update user profile");
           });
       })
       .catch(() => {
         setLoading(false);
-        toast.error("Something Went Wrong", {
-          description: "There was a problem while creating your account.",
-        });
+        toast.error("Failed to create account");
       });
   };
 
@@ -103,11 +113,35 @@ const Register = ({ className, ...props }: React.ComponentProps<"div">) => {
           </div>
           <form onSubmit={handleRegister} className="p-6 md:p-8">
             <div className="flex flex-col gap-4">
+              {/* heading */}
               <div className="flex flex-col items-center text-center">
                 <h1 className="text-2xl font-bold">Hello There!</h1>
                 <p className="text-muted-foreground text-balance">
                   Create an account on Tasklet
                 </p>
+              </div>
+
+              {/* profile picture upload */}
+
+              <div className="flex justify-center relative">
+                <Avatar className="w-20 h-20 ring-4 ring-accent/30">
+                  <AvatarImage src={photoURL || ""} alt="Uploaded photo" />
+                  <AvatarFallback className="flex items-center justify-center text-muted-foreground p-6 ">
+                    {uploading ? (
+                      <LoaderSpinner />
+                    ) : (
+                      <>
+                        <Upload className="w-full h-full" />
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handlePhotoUpload}
+                          className="w-full h-full cursor-pointer absolute opacity-0"
+                        />
+                      </>
+                    )}
+                  </AvatarFallback>
+                </Avatar>
               </div>
 
               <div className="grid gap-2">
@@ -119,18 +153,6 @@ const Register = ({ className, ...props }: React.ComponentProps<"div">) => {
                   id="name"
                   type="text"
                   placeholder="Your Name"
-                />
-              </div>
-
-              <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="photoURL">Profile Picture</Label>
-                </div>
-                <Input
-                  name="photoURL"
-                  id="photoURL"
-                  type="text"
-                  placeholder="Photo URL"
                 />
               </div>
 
