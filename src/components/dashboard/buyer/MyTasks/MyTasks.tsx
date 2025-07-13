@@ -1,6 +1,7 @@
 import useTaskApi from "@/api/useTaskApi";
 import LoaderSpinner from "@/components/shared/LoaderSpinner/LoaderSpinner";
 import SectionHeader from "@/components/shared/SectionHeader/SectionHeader";
+import TaskDeleteButton from "@/components/shared/tasks/TaskDeleteButton/TaskDeleteButton";
 import {
   Table,
   TableBody,
@@ -9,36 +10,39 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useMyTasksStore } from "@/hooks/stores/useMyTasksStore/useMyTasksStore";
 import { useDBUser } from "@/hooks/useDBUser/useDBUser";
 import type { TaskType } from "@/types/taskTypes/taskType";
 import { format } from "date-fns";
 import { CircleCheck, Clock, CreditCard, GripHorizontal } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 const MyTasks = () => {
   const { getTasks } = useTaskApi();
   const { dbUser } = useDBUser();
-  const [myTasks, setMyTasks] = useState<TaskType[] | null>(null);
+  const { myTasks, setMyTasks } = useMyTasksStore();
   const [tasksLoading, setTasksLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  const navigateToDetails = (taskId: string) => {
+    navigate(`/task/details/${taskId}`);
+  };
 
   useEffect(() => {
-    const getUserTasks = () => {
-      setTasksLoading(true);
-      const user_email = dbUser?.email || "";
-
-      getTasks({ user_email: user_email })
-        .then((res) => {
-          console.log(res);
-          setMyTasks(res);
-          setTasksLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-          setTasksLoading(false);
-        });
+    const fetchTasks = async () => {
+      try {
+        setTasksLoading(true);
+        const res = await getTasks({ user_email: dbUser?.email });
+        setMyTasks(res);
+      } catch (err) {
+        console.error("Fetch tasks error:", err);
+      } finally {
+        setTasksLoading(false);
+      }
     };
 
-    getUserTasks();
+    fetchTasks();
   }, [dbUser]);
 
   return (
@@ -74,25 +78,41 @@ const MyTasks = () => {
             </TableHeader>
             <TableBody>
               {myTasks.map((task: TaskType, idx) => (
-                <TableRow>
-                  <TableCell className="font-medium  hidden md:table-cell">
+                <TableRow key={task._id}>
+                  <TableCell
+                    onClick={() => navigateToDetails(task._id)}
+                    className="font-medium hidden md:table-cell cursor-pointer"
+                  >
                     {idx + 1}
                   </TableCell>
-                  <TableCell>{task.task_title}</TableCell>
-                  <TableCell>
+                  <TableCell
+                    onClick={() => navigateToDetails(task._id)}
+                    className="cursor-pointer"
+                  >
+                    {task.task_title}
+                  </TableCell>
+                  <TableCell
+                    onClick={() => navigateToDetails(task._id)}
+                    className="cursor-pointer"
+                  >
                     {format(task.completion_date, "dd LLL yyyy")}
                   </TableCell>
-                  <TableCell>
+                  <TableCell
+                    onClick={() => navigateToDetails(task._id)}
+                    className="cursor-pointer"
+                  >
                     <span className="opacity-70">$</span>
                     {task.payable_amount * task.required_workers}
                   </TableCell>
-                  <TableCell>E | D | DL</TableCell>
+                  <TableCell>
+                    <TaskDeleteButton task_id={task._id} />
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         ) : (
-          <>You haven't added any task yet</>
+          <>You haven't added any task yet.</>
         )}
       </main>
     </section>

@@ -38,7 +38,13 @@ const useTaskApi = () => {
     return axiosSecure.post("/tasks", newTask).then((res) => res.data);
   };
 
-  return { getTasks, postNewTask };
+  const deleteTask = ({ task_id = "" }: { task_id: string }) => {
+    return axiosSecure
+      .delete(`/tasks?task_id=${task_id}`)
+      .then((res) => res.data);
+  };
+
+  return { getTasks, postNewTask, deleteTask };
 };
 
 export default useTaskApi;
