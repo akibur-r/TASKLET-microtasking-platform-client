@@ -105,7 +105,11 @@ const MyTasks = () => {
                     {task.payable_amount * task.required_workers}
                   </TableCell>
                   <TableCell>
-                    <TaskDeleteButton task_id={task._id} />
+                    <TaskDeleteButton
+                      payable_amount={task.payable_amount}
+                      required_workers={task.required_workers}
+                      task_id={task._id}
+                    />
                   </TableCell>
                 </TableRow>
               ))}

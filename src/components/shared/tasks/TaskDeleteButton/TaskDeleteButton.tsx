@@ -12,23 +12,29 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useMyTasksStore } from "@/hooks/stores/useMyTasksStore/useMyTasksStore";
+import { useDBUser } from "@/hooks/useDBUser/useDBUser";
 import { Trash } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
 interface TaskDeleteButtonProps {
   task_id: string;
+  payable_amount?: number;
+  required_workers?: number;
   showText?: boolean;
 }
 
 const TaskDeleteButton = ({
   task_id,
   showText = false,
+  payable_amount = 0,
+  required_workers = 0,
 }: TaskDeleteButtonProps) => {
   const [deleteBtnLoading, setDeleteBtnLoading] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const { deleteTaskById } = useMyTasksStore();
   const { deleteTask } = useTaskApi();
+  const { updateCoinBalance } = useDBUser();
 
   const handleDeleteTask = async () => {
     try {
@@ -36,9 +42,13 @@ const TaskDeleteButton = ({
       deleteTask({ task_id })
         .then((res) => {
           if (res.deletedCount) {
+            // refund
+            updateCoinBalance(payable_amount * required_workers);
+
             toast.warning("Deleted", {
               description: "The task was deleted successfully",
             });
+
             deleteTaskById(task_id);
             setDialogOpen(false);
             setDeleteBtnLoading(false);
@@ -49,6 +59,7 @@ const TaskDeleteButton = ({
         })
         .catch((err) => {
           console.log(err);
+          setDeleteBtnLoading(false);
         });
     } catch (err) {
       console.error("Delete failed", err);
