@@ -2,6 +2,7 @@ import Home from "@/components/auth/Index/Home";
 import Login from "@/components/auth/Login/Login";
 import Register from "@/components/auth/Register/Register";
 import AddTask from "@/components/dashboard/buyer/AddTask/AddTask";
+import MyTasks from "@/components/dashboard/buyer/MyTasks/MyTasks";
 import PurchaseCoins from "@/components/dashboard/buyer/PurchaseCoins/PurchaseCoins";
 import DashboardOverview from "@/components/dashboard/DashboardOverview/DashboardOverview";
 import ManageUsers from "@/components/dashboard/ManageUsers/ManageUsers";
@@ -68,6 +69,14 @@ export const router = createBrowserRouter([
         element: (
           <RoleBasedRouteProvider allowedRoles={["buyer"]}>
             <AddTask />
+          </RoleBasedRouteProvider>
+        ),
+      },
+      {
+        path: "/dashboard/my-tasks",
+        element: (
+          <RoleBasedRouteProvider allowedRoles={["buyer"]}>
+            <MyTasks />
           </RoleBasedRouteProvider>
         ),
       },
