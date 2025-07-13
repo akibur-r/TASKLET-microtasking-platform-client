@@ -8,13 +8,17 @@ const useUserApi = () => {
     return axiosSecure.get("/users").then((res) => res.data);
   };
 
+  const getUserPaymentPromise = () => {
+    return axiosSecure.get("/users/payments").then((res) => res.data);
+  };
+
   const addUserPaymentPromise = (paymentInfo: PaymentType) => {
     return axiosSecure
       .post("/users/payments", paymentInfo)
       .then((res) => res.data);
   };
 
-  return { getUserInfoPromise, addUserPaymentPromise };
+  return { getUserInfoPromise, getUserPaymentPromise, addUserPaymentPromise };
 };
 
 export default useUserApi;

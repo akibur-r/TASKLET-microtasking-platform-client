@@ -25,3 +25,13 @@ export type PaymentType =
       payment_info: number;
       payment_method: PaymentMethodType;
     };
+
+export type PaymentFromDBType = {
+  _id: string;
+  user_email: string;
+  coins: number;
+  price: number;
+  payment_method: PaymentMethodType;
+  payment_type: "purchase" | "withdraw";
+  created_at: string;
+};
