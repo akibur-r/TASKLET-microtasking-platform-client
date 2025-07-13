@@ -1,12 +1,13 @@
 import Home from "@/components/auth/Index/Home";
 import Login from "@/components/auth/Login/Login";
 import Register from "@/components/auth/Register/Register";
+import ManageTasks from "@/components/dashboard/admin/ManageTasks/ManageTasks";
+import ManageUsers from "@/components/dashboard/admin/ManageUsers/ManageUsers";
 import AddTask from "@/components/dashboard/buyer/AddTask/AddTask";
 import MyTasks from "@/components/dashboard/buyer/MyTasks/MyTasks";
 import PaymentHistory from "@/components/dashboard/buyer/PaymentHistory/PaymentHistory";
 import PurchaseCoins from "@/components/dashboard/buyer/PurchaseCoins/PurchaseCoins";
 import DashboardOverview from "@/components/dashboard/DashboardOverview/DashboardOverview";
-import ManageUsers from "@/components/dashboard/ManageUsers/ManageUsers";
 import Unauthorized from "@/components/shared/Unauthorized/Unauthorized";
 import AuthLayout from "@/layouts/AuthLayout";
 import DashboardLayout from "@/layouts/DashboardLayout";
@@ -62,6 +63,14 @@ export const router = createBrowserRouter([
         element: (
           <RoleBasedRouteProvider allowedRoles={["admin"]}>
             <ManageUsers />
+          </RoleBasedRouteProvider>
+        ),
+      },
+      {
+        path: "/dashboard/manage-tasks",
+        element: (
+          <RoleBasedRouteProvider allowedRoles={["admin"]}>
+            <ManageTasks />
           </RoleBasedRouteProvider>
         ),
       },

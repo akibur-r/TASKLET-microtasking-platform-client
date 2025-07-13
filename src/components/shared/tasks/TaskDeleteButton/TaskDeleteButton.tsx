@@ -34,7 +34,7 @@ const TaskDeleteButton = ({
   const [dialogOpen, setDialogOpen] = useState(false);
   const { deleteTaskById } = useMyTasksStore();
   const { deleteTask } = useTaskApi();
-  const { updateCoinBalance } = useDBUser();
+  const { dbUser, updateCoinBalance } = useDBUser();
 
   const handleDeleteTask = async () => {
     try {
@@ -42,8 +42,10 @@ const TaskDeleteButton = ({
       deleteTask({ task_id })
         .then((res) => {
           if (res.deletedCount) {
-            // refund
-            updateCoinBalance(payable_amount * required_workers);
+            // refund if the actor is buyer
+            if (dbUser?.role === "buyer") {
+              updateCoinBalance(payable_amount * required_workers);
+            }
 
             toast.warning("Deleted", {
               description: "The task was deleted successfully",

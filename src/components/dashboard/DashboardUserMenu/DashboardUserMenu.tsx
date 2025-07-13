@@ -42,7 +42,9 @@ export function DashboardUserMenu() {
                   src={user?.photoURL || ""}
                   alt={user?.displayName || ""}
                 />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="rounded-lg">
+                  {user?.displayName?.charAt(0) || "A"}
+                </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">
@@ -60,7 +62,15 @@ export function DashboardUserMenu() {
             sideOffset={4}
           >
             <DropdownMenuLabel className="p-0 font-normal">
-              <Badge className="bg-primary/20 border border-primary/50">
+              <Badge
+                className={` border ${
+                  dbUser?.role === "admin"
+                    ? "bg-destructive/20 border-destructive/50"
+                    : dbUser?.role === "worker"
+                    ? "bg-accent/20 border-accent/50"
+                    : "bg-primary/20 border-primary/50"
+                }`}
+              >
                 {dbUser?.role}
               </Badge>
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
