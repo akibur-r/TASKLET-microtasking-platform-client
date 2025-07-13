@@ -2,6 +2,7 @@ import useTaskApi from "@/api/useTaskApi";
 import LoaderSpinner from "@/components/shared/LoaderSpinner/LoaderSpinner";
 import SectionHeader from "@/components/shared/SectionHeader/SectionHeader";
 import TaskDeleteButton from "@/components/shared/tasks/TaskDeleteButton/TaskDeleteButton";
+import TaskUpdateButton from "@/components/shared/tasks/TaskUpdateButton/TaskUpdateButton";
 import {
   Table,
   TableBody,
@@ -105,11 +106,14 @@ const MyTasks = () => {
                     {task.payable_amount * task.required_workers}
                   </TableCell>
                   <TableCell>
-                    <TaskDeleteButton
-                      payable_amount={task.payable_amount}
-                      required_workers={task.required_workers}
-                      task_id={task._id}
-                    />
+                    <div className="flex gap-2">
+                      <TaskDeleteButton
+                        payable_amount={task.payable_amount}
+                        required_workers={task.required_workers}
+                        task_id={task._id}
+                      />
+                      <TaskUpdateButton task={task} />
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}

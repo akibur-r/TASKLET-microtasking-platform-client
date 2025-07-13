@@ -1,5 +1,6 @@
 import useAxiosSecure from "@/hooks/useAxiosSecure/useAxiosSecure";
 import type { newTaskType } from "@/types/taskTypes/newTaskType";
+import type { TaskType } from "@/types/taskTypes/taskType";
 
 type GetTasksParams = {
   user_email?: string;
@@ -38,13 +39,18 @@ const useTaskApi = () => {
     return axiosSecure.post("/tasks", newTask).then((res) => res.data);
   };
 
+  const updateTask = (payload: Partial<TaskType>) => {
+    const { _id, ...body } = payload;
+    return axiosSecure.put(`/tasks?id=${_id}`, body).then((res) => res.data);
+  };
+
   const deleteTask = ({ task_id = "" }: { task_id: string }) => {
     return axiosSecure
       .delete(`/tasks?task_id=${task_id}`)
       .then((res) => res.data);
   };
 
-  return { getTasks, postNewTask, deleteTask };
+  return { getTasks, postNewTask, updateTask, deleteTask };
 };
 
 export default useTaskApi;

@@ -101,7 +101,7 @@ const TaskDeleteButton = ({
             variant="default"
             className="bg-red-500/70 hover:bg-red-500/80 text-base-content"
           >
-            {deleteBtnLoading ? <LoaderSpinner /> : "Delete"}
+            {deleteBtnLoading ? <LoaderSpinner size={12} /> : "Delete"}
           </Button>
         </DialogFooter>
       </DialogContent>
