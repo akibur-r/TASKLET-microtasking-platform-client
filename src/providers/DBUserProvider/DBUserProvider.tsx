@@ -8,6 +8,7 @@ import { createContext, useEffect, useState, type ReactNode } from "react";
 interface DBUserContextType {
   dbUser: dbUserType | null;
   setDBUser: (info: dbUserType | null) => void;
+  updateCoinBalance: (value: number) => void;
   dbUserLoading: boolean;
 }
 
@@ -57,10 +58,18 @@ const DBUserProvider = ({ children }: Props) => {
     }
   }, [dbUserLoading, setLoading]);
 
+  const updateCoinBalance = (value: number) => {
+    if (dbUser) {
+     const newCoinBalance = dbUser.coinBalance += value;
+     setDBUser({...dbUser, coinBalance: newCoinBalance});
+    }
+  };
+
   const value: DBUserContextType = {
     dbUser,
     setDBUser,
     dbUserLoading,
+    updateCoinBalance,
   };
 
   return (

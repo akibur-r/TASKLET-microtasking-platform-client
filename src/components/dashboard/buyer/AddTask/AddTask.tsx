@@ -1,3 +1,5 @@
+import useTaskApi from "@/api/useTaskApi";
+import LoaderSpinner from "@/components/shared/LoaderSpinner/LoaderSpinner";
 import SectionHeader from "@/components/shared/SectionHeader/SectionHeader";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -15,18 +17,23 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useDBUser } from "@/hooks/useDBUser/useDBUser";
+import type { newTaskType } from "@/types/taskTypes/newTaskType";
 import { uploadToImgBB } from "@/utils/functions/uploadToImgBB";
 import { Loader2, Upload } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router";
 import { toast } from "sonner";
 
 const AddTask = () => {
   const [imagePreview, setImagePreview] = useState("");
   const [uploading, setUploading] = useState(false);
-  const { dbUser } = useDBUser();
+  const { dbUser, updateCoinBalance } = useDBUser();
+  const { postNewTask } = useTaskApi();
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [amountToPay, setAmountToPay] = useState<number>(0);
+  const [newTask, setNewTask] = useState<newTaskType | null>(null);
+  const [confirmButtonLoading, setConfirmButtonLoading] = useState(false);
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -43,6 +50,29 @@ const AddTask = () => {
     setUploading(false);
   };
 
+  const handlePaymentConfirmation = () => {
+    setConfirmButtonLoading(true);
+    if (newTask) {
+      postNewTask(newTask)
+        .then((res) => {
+          if (res.insertedId) {
+            toast.success("Task Added");
+            updateCoinBalance(-amountToPay);
+          }
+
+          setConfirmButtonLoading(false);
+          // setDialogOpen(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("Not Added", { description: "Something went wrong." });
+          setConfirmButtonLoading(false);
+        });
+    } else {
+      setConfirmButtonLoading(false);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -53,7 +83,7 @@ const AddTask = () => {
       ? ""
       : parsedDate.toISOString();
 
-    const task = {
+    const taskToSubmit: newTaskType = {
       task_title: formData.get("task_title")?.toString().trim() || "",
       task_detail: formData.get("task_detail")?.toString().trim() || "",
       required_workers: Number(formData.get("required_workers")),
@@ -61,27 +91,31 @@ const AddTask = () => {
       completion_date,
       submission_info: formData.get("submission_info")?.toString().trim() || "",
       task_image_url: imagePreview,
+      task_owner_email: dbUser?.email || "",
     };
 
     let error = "";
 
-    if (!task.task_title) {
+    if (!taskToSubmit.task_title) {
       error = "You must add a task title";
-    } else if (!task.task_detail) {
+    } else if (!taskToSubmit.task_detail) {
       error = "You must provide task details";
     } else if (
-      isNaN(task.required_workers) ||
-      task.required_workers < 1 ||
-      !Number.isInteger(task.required_workers)
+      isNaN(taskToSubmit.required_workers) ||
+      taskToSubmit.required_workers < 1 ||
+      !Number.isInteger(taskToSubmit.required_workers)
     ) {
       error = "You must require at least 1 valid worker";
-    } else if (isNaN(task.payable_amount) || task.payable_amount < 1) {
+    } else if (
+      isNaN(taskToSubmit.payable_amount) ||
+      taskToSubmit.payable_amount < 1
+    ) {
       error = "You must pay at least 1 coin per worker";
     } else if (!completion_date) {
       error = "You must add a valid task completion date";
-    } else if (!task.submission_info) {
+    } else if (!taskToSubmit.submission_info) {
       error = "You must add task submission information";
-    } else if (!task.task_image_url) {
+    } else if (!taskToSubmit.task_image_url) {
       error = "Task image was not uploaded properly";
     }
 
@@ -90,12 +124,14 @@ const AddTask = () => {
       return;
     }
 
-    setAmountToPay(task.payable_amount * task.required_workers);
+    setAmountToPay(taskToSubmit.payable_amount * taskToSubmit.required_workers);
     setDialogOpen(true);
 
     if ((dbUser?.coinBalance || 0) < amountToPay) {
       return;
     }
+
+    setNewTask(taskToSubmit);
   };
 
   return (
@@ -231,23 +267,21 @@ const AddTask = () => {
 
             {(dbUser?.coinBalance || 0) < amountToPay ? (
               <Button
-                onClick={() => {
-                  toast.error("not enough balance");
-                }}
-                variant={"default"}
                 className="bg-accent hover:bg-accent/80 text-black"
+                asChild
               >
-                Buy Coins
+                <Link to={"/dashboard/purchase-coins"}>Purchase Coins</Link>
               </Button>
             ) : (
               <Button
                 onClick={() => {
-                  toast.success("done");
+                  handlePaymentConfirmation();
                 }}
                 variant={"default"}
-                className="bg-primary/70 hover:bg-primary/80 text-base-content"
+                className="bg-primary/70 hover:bg-primary/80 text-base-content flex items-center justify-center"
+                disabled={confirmButtonLoading}
               >
-                Add Task
+                {confirmButtonLoading ? <LoaderSpinner  /> : "Add Task"}
               </Button>
             )}
           </DialogFooter>

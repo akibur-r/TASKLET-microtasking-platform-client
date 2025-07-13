@@ -52,8 +52,8 @@ export const dashboardMenuItems = {
       icon: Ungroup,
     },
     {
-      title: "Purchase Coin",
-      url: "/dashboard/purchase-coin",
+      title: "Purchase Coins",
+      url: "/dashboard/purchase-coins",
       icon: ShoppingBag,
     },
     {

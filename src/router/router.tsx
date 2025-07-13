@@ -2,13 +2,16 @@ import Home from "@/components/auth/Index/Home";
 import Login from "@/components/auth/Login/Login";
 import Register from "@/components/auth/Register/Register";
 import AddTask from "@/components/dashboard/buyer/AddTask/AddTask";
+import PurchaseCoins from "@/components/dashboard/buyer/PurchaseCoins/PurchaseCoins";
 import DashboardOverview from "@/components/dashboard/DashboardOverview/DashboardOverview";
 import ManageUsers from "@/components/dashboard/ManageUsers/ManageUsers";
+import Unauthorized from "@/components/shared/Unauthorized/Unauthorized";
 import AuthLayout from "@/layouts/AuthLayout";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import RootLayout from "@/layouts/RootLayout";
 import HomePage from "@/pages/HomePage/HomePage";
 import PrivateRouteProvider from "@/providers/PrivateRouteProvider/PrivateRouteProvider";
+import RoleBasedRouteProvider from "@/providers/RoleBasedRouteProvider/RoleBasedRouteProvider";
 import { createBrowserRouter } from "react-router";
 
 export const router = createBrowserRouter([
@@ -54,12 +57,32 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard/manage-users",
-        Component: ManageUsers,
+        element: (
+          <RoleBasedRouteProvider allowedRoles={["admin"]}>
+            <ManageUsers />
+          </RoleBasedRouteProvider>
+        ),
       },
       {
         path: "/dashboard/add-task",
-        Component: AddTask,
+        element: (
+          <RoleBasedRouteProvider allowedRoles={["buyer"]}>
+            <AddTask />
+          </RoleBasedRouteProvider>
+        ),
+      },
+      {
+        path: "/dashboard/purchase-coins",
+        element: (
+          <RoleBasedRouteProvider allowedRoles={["buyer"]}>
+            <PurchaseCoins />
+          </RoleBasedRouteProvider>
+        ),
       },
     ],
+  },
+  {
+    path: "/unauthorized",
+    Component: Unauthorized,
   },
 ]);

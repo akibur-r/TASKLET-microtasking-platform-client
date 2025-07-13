@@ -77,7 +77,7 @@ const Register = ({ className, ...props }: React.ComponentProps<"div">) => {
       .then(() => {
         updateUser({ displayName: name, photoURL: photoURL })
           .then(() => {
-            addUserPromise({ email, role })
+            addUserPromise({ email, role, name })
               .then(() => {
                 toast.success("Account created successfully", {
                   description: "You can now access exclusive contents.",

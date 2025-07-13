@@ -12,12 +12,18 @@ const CoinBalanceBadge = () => {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <span className="cursor-pointer p-0.5 rounded-full px-2  bg-amber-500/10 hover:bg-amber-500/15 border border-amber-500/20 flex items-center gap-0.5 text-md">
+        <span
+          className={`cursor-pointer p-0.5 rounded-full px-2 ${
+            (dbUser?.coinBalance || 0) < 1
+              ? "bg-destructive/10 hover:bg-destructive/15 border border-destructive/20"
+              : "bg-amber-500/10 hover:bg-amber-500/15 border border-amber-500/20"
+          }   flex items-center gap-0.5 text-md`}
+        >
           {dbUserLoading ? (
             <LoaderSpinner size={4} className="text-amber-500" />
           ) : (
             <>
-              <FaEthereum className="text-amber-500 dark:text-amber-400" />
+              <FaEthereum className={`text-amber-500 dark:text-amber-400`} />
               <>{dbUser?.coinBalance || 0}</>
             </>
           )}
