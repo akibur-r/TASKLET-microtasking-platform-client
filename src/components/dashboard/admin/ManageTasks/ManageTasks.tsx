@@ -14,7 +14,13 @@ import { useMyTasksStore } from "@/hooks/stores/useMyTasksStore/useMyTasksStore"
 import { useDBUser } from "@/hooks/useDBUser/useDBUser";
 import type { TaskType } from "@/types/taskTypes/taskType";
 import { format } from "date-fns";
-import { AtSign, CalendarDays, GripHorizontal, Hash } from "lucide-react";
+import {
+  AtSign,
+  CalendarDays,
+  GripHorizontal,
+  Hash,
+  ListTodo,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
@@ -62,12 +68,15 @@ const ManageTasks = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-20 hidden md:table-cell">SL.</TableHead>
-                <TableHead>
+                <TableHead className="w-fit">
                   <Hash className="md:hidden size-4" />
-                  <span className="hidden md:block">Title</span>
+                  <span className="hidden md:block">Sl.</span>
                 </TableHead>
                 <TableHead>
+                  <ListTodo className="md:hidden size-4" />
+                  <span className="hidden md:block">Title</span>
+                </TableHead>
+                <TableHead className="hidden md:table-cell">
                   <AtSign className="md:hidden size-4" />
                   <span className="hidden md:block">Owner Email</span>
                 </TableHead>
@@ -86,19 +95,19 @@ const ManageTasks = () => {
                 <TableRow key={task._id}>
                   <TableCell
                     onClick={() => navigateToDetails(task._id)}
-                    className="font-medium hidden md:table-cell cursor-pointer"
+                    className="font-medium cursor-pointer"
                   >
                     {idx + 1}
                   </TableCell>
                   <TableCell
                     onClick={() => navigateToDetails(task._id)}
-                    className="cursor-pointer"
+                    className="cursor-pointer max-w-48 truncate"
                   >
                     {task.task_title}
                   </TableCell>
                   <TableCell
                     onClick={() => navigateToDetails(task._id)}
-                    className="cursor-pointer"
+                    className="cursor-pointer hidden md:table-cell"
                   >
                     {task.task_owner_email}
                   </TableCell>

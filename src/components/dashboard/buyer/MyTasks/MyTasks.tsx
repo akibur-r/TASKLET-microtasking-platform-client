@@ -21,6 +21,7 @@ import {
   CreditCard,
   GripHorizontal,
   Hash,
+  ListTodo,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
@@ -69,7 +70,7 @@ const MyTasks = () => {
                   <span className="hidden md:block">Sl.</span>
                 </TableHead>
                 <TableHead>
-                  <CircleCheck className="md:hidden size-4" />
+                  <ListTodo className="md:hidden size-4" />
                   <span className="hidden md:block">Title</span>
                 </TableHead>
                 <TableHead>

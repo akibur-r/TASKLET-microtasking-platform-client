@@ -15,11 +15,11 @@ import { useDBUser } from "@/hooks/useDBUser/useDBUser";
 import type { SubmissionType } from "@/types/submissionTypes/submissionTypes";
 import { format } from "date-fns";
 import {
-  CircleCheck,
   Clock,
   CreditCard,
   GripHorizontal,
   Hash,
+  ListTodo,
 } from "lucide-react";
 import { useEffect } from "react";
 
@@ -72,7 +72,7 @@ const MySubmissions = () => {
                   <span className="hidden md:block">Sl.</span>
                 </TableHead>
                 <TableHead>
-                  <CircleCheck className="md:hidden size-4" />
+                  <ListTodo className="md:hidden size-4" />
                   <span className="hidden md:block">Title</span>
                 </TableHead>
                 <TableHead>
