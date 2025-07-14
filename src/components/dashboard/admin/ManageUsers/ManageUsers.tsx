@@ -57,7 +57,7 @@ const ManageUsers = () => {
   return (
     <section className="space-y-8">
       <SectionHeader
-        name="Manage Tasks"
+        name="Manage Users"
         tagline="You are modifying other users information"
         className="text-center space-y-1"
         taglineClassName="text-accent/90"

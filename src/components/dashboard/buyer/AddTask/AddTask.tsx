@@ -92,6 +92,7 @@ const AddTask = () => {
       submission_info: formData.get("submission_info")?.toString().trim() || "",
       task_image_url: imagePreview,
       task_owner_email: dbUser?.email || "",
+      task_owner_name: dbUser?.name || "",
     };
 
     let error = "";
@@ -281,7 +282,7 @@ const AddTask = () => {
                 className="bg-primary/70 hover:bg-primary/80 text-base-content flex items-center justify-center"
                 disabled={confirmButtonLoading}
               >
-                {confirmButtonLoading ? <LoaderSpinner  /> : "Add Task"}
+                {confirmButtonLoading ? <LoaderSpinner /> : "Add Task"}
               </Button>
             )}
           </DialogFooter>

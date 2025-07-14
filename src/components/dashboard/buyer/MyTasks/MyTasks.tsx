@@ -27,7 +27,7 @@ const MyTasks = () => {
   const navigate = useNavigate();
 
   const navigateToDetails = (taskId: string) => {
-    navigate(`/task/details/${taskId}`);
+    navigate(`/dashboard/task/details/${taskId}`);
   };
 
   useEffect(() => {

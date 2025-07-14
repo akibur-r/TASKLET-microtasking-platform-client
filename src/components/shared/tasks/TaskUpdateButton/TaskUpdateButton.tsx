@@ -78,7 +78,7 @@ const TaskUpdateButton = ({ task, showText = false }: Props) => {
           ) : (
             <>
               <PenLine />
-              {showText && <span className="ml-1">Delete</span>}
+              {showText && <span className="ml-1">Edit</span>}
             </>
           )}
         </Button>

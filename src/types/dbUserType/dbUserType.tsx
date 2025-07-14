@@ -5,6 +5,7 @@ export type dbUserType = {
   role: "admin" | "worker" | "buyer" | "default";
   coinBalance: number;
   joinDate: string;
+  status: "deleted" | "active";
 };
 
 export type newDBUserType = {

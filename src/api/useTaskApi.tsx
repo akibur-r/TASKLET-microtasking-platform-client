@@ -8,6 +8,7 @@ type GetTasksParams = {
   order?: "asc" | "desc";
   limit?: number;
   currentPage?: number;
+  taskId?: string;
 };
 
 const useTaskApi = () => {
@@ -19,11 +20,15 @@ const useTaskApi = () => {
     order = "desc",
     limit = 0,
     currentPage = 0,
+    taskId = ""
   }: GetTasksParams) => {
     const queryParams: string[] = [];
 
     if (user_email) {
       queryParams.push(`user_email=${encodeURIComponent(user_email)}`);
+    }
+    if(taskId) {
+      queryParams.push(`task_id=${taskId}`)
     }
     if (sort_by) queryParams.push(`sort_by=${sort_by}`);
     if (order) queryParams.push(`order=${order}`);

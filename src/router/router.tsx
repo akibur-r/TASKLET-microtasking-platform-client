@@ -8,6 +8,7 @@ import MyTasks from "@/components/dashboard/buyer/MyTasks/MyTasks";
 import PaymentHistory from "@/components/dashboard/buyer/PaymentHistory/PaymentHistory";
 import PurchaseCoins from "@/components/dashboard/buyer/PurchaseCoins/PurchaseCoins";
 import DashboardOverview from "@/components/dashboard/DashboardOverview/DashboardOverview";
+import TaskDetails from "@/components/dashboard/task/TaskDetails/TaskDetails";
 import Unauthorized from "@/components/shared/Unauthorized/Unauthorized";
 import AuthLayout from "@/layouts/AuthLayout";
 import DashboardLayout from "@/layouts/DashboardLayout";
@@ -103,6 +104,14 @@ export const router = createBrowserRouter([
         element: (
           <RoleBasedRouteProvider allowedRoles={["buyer"]}>
             <PaymentHistory />
+          </RoleBasedRouteProvider>
+        ),
+      },
+      {
+        path: "/dashboard/task/details/:taskId",
+        element: (
+          <RoleBasedRouteProvider allowedRoles={["admin", "buyer", "worker"]}>
+            <TaskDetails />
           </RoleBasedRouteProvider>
         ),
       },

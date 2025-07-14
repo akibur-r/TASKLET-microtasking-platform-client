@@ -8,5 +8,6 @@ export type TaskType = {
   submission_info: string;
   task_image_url: string;
   task_owner_email: string;
+  task_owner_name: string;
   date_added: string;
 };

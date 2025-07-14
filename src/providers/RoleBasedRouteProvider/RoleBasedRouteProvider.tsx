@@ -9,7 +9,10 @@ interface RoleBasedRouteProviderProps {
   children: ReactNode;
 }
 
-const RoleBasedRouteProvider = ({ allowedRoles, children }: RoleBasedRouteProviderProps) => {
+const RoleBasedRouteProvider = ({
+  allowedRoles,
+  children,
+}: RoleBasedRouteProviderProps) => {
   const { user, loading: authLoading } = useAuth();
   const { dbUser, dbUserLoading } = useDBUser();
   const location = useLocation();
