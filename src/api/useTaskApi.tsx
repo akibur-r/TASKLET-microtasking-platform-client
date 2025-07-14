@@ -9,6 +9,7 @@ type GetTasksParams = {
   limit?: number;
   currentPage?: number;
   taskId?: string;
+  active_only?: boolean;
 };
 
 const useTaskApi = () => {
@@ -20,16 +21,22 @@ const useTaskApi = () => {
     order = "desc",
     limit = 0,
     currentPage = 0,
-    taskId = ""
+    taskId = "",
+    active_only = false,
   }: GetTasksParams) => {
     const queryParams: string[] = [];
 
     if (user_email) {
       queryParams.push(`user_email=${encodeURIComponent(user_email)}`);
     }
-    if(taskId) {
-      queryParams.push(`task_id=${taskId}`)
+    if (taskId) {
+      queryParams.push(`task_id=${taskId}`);
     }
+
+    if (active_only) {
+      queryParams.push(`active_only=${active_only && "true"}`);
+    }
+
     if (sort_by) queryParams.push(`sort_by=${sort_by}`);
     if (order) queryParams.push(`order=${order}`);
     if (limit) queryParams.push(`limit=${limit}`);

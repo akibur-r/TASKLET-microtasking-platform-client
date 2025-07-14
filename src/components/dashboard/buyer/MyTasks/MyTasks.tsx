@@ -88,7 +88,7 @@ const MyTasks = () => {
                   </TableCell>
                   <TableCell
                     onClick={() => navigateToDetails(task._id)}
-                    className="cursor-pointer"
+                    className="cursor-pointer max-w-[50ch] truncate whitespace-nowrap"
                   >
                     {task.task_title}
                   </TableCell>

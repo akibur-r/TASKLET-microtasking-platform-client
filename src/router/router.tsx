@@ -9,6 +9,7 @@ import PaymentHistory from "@/components/dashboard/buyer/PaymentHistory/PaymentH
 import PurchaseCoins from "@/components/dashboard/buyer/PurchaseCoins/PurchaseCoins";
 import DashboardOverview from "@/components/dashboard/DashboardOverview/DashboardOverview";
 import TaskDetails from "@/components/dashboard/task/TaskDetails/TaskDetails";
+import AvailableTasks from "@/components/dashboard/worker/AvailableTasks/AvailableTasks";
 import Unauthorized from "@/components/shared/Unauthorized/Unauthorized";
 import AuthLayout from "@/layouts/AuthLayout";
 import DashboardLayout from "@/layouts/DashboardLayout";
@@ -59,6 +60,7 @@ export const router = createBrowserRouter([
         index: true,
         Component: DashboardOverview,
       },
+      // admin --
       {
         path: "/dashboard/manage-users",
         element: (
@@ -75,6 +77,7 @@ export const router = createBrowserRouter([
           </RoleBasedRouteProvider>
         ),
       },
+      // buyer --
       {
         path: "/dashboard/add-task",
         element: (
@@ -107,6 +110,16 @@ export const router = createBrowserRouter([
           </RoleBasedRouteProvider>
         ),
       },
+      // worker --
+      {
+        path: "/dashboard/available-tasks",
+        element: (
+          <RoleBasedRouteProvider allowedRoles={["worker"]}>
+            <AvailableTasks />
+          </RoleBasedRouteProvider>
+        ),
+      },
+      // shared --
       {
         path: "/dashboard/task/details/:taskId",
         element: (

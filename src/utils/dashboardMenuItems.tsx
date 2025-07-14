@@ -20,8 +20,8 @@ export const dashboardMenuItems = {
       icon: House,
     },
     {
-      title: "Task List",
-      url: "/dashboard/task-list",
+      title: "Available Tasks",
+      url: "/dashboard/available-tasks",
       icon: ListChecks,
     },
     {

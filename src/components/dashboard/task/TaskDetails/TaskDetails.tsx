@@ -64,7 +64,7 @@ const TaskDetails = () => {
                 "Your submission will be reviewed by the employer soon",
             });
             setSubmitLoading(false);
-            navigate("/dashboard");
+            navigate("/dashboard/available-tasks");
           } else {
             toast.error("Submission failed", {
               description: "Something went wrong",
@@ -122,9 +122,7 @@ const TaskDetails = () => {
                 </h1>
                 <div className="grid md:grid-cols-2 gap-2 lg:gap-3">
                   <div>
-                    <h3 className="text-sm text-muted-foreground">
-                      Assigned by
-                    </h3>
+                    <h3 className="text-sm text-muted-foreground">Buyer</h3>
                     <p>{task.task_owner_name}</p>
                   </div>
                   <div>
@@ -133,14 +131,13 @@ const TaskDetails = () => {
                   </div>
                   <div>
                     <h3 className="text-sm text-muted-foreground">Payment</h3>
-                    <p>
-                      <span className="opacity-80">$</span>
-                      {task.payable_amount} per submission
-                    </p>
+                    <p>{task.payable_amount} coins per submission</p>
                   </div>
                   <div>
                     <h3 className="text-sm text-muted-foreground">
-                      Can Submit
+                      {dbUser?.role === "worker"
+                        ? "Can Submit"
+                        : "Worker Needed"}
                     </h3>
                     <p>{task.required_workers} times</p>
                   </div>
