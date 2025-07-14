@@ -14,7 +14,7 @@ import { useMyTasksStore } from "@/hooks/stores/useMyTasksStore/useMyTasksStore"
 import { useDBUser } from "@/hooks/useDBUser/useDBUser";
 import type { TaskType } from "@/types/taskTypes/taskType";
 import { format } from "date-fns";
-import { CircleCheck, Clock, CreditCard, GripHorizontal } from "lucide-react";
+import { AtSign, CalendarDays, GripHorizontal, Hash } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
@@ -65,19 +65,19 @@ const ManageTasks = () => {
               <TableRow>
                 <TableHead className="w-20 hidden md:table-cell">SL.</TableHead>
                 <TableHead>
-                  <CircleCheck className="md:hidden size-4" />
+                  <Hash className="md:hidden size-4" />
                   <span className="hidden md:block">Title</span>
                 </TableHead>
                 <TableHead>
-                  <Clock className="md:hidden size-4" />
-                  <span className="hidden md:block">Completion Date</span>
+                  <AtSign className="md:hidden size-4" />
+                  <span className="hidden md:block">Owner Email</span>
                 </TableHead>
                 <TableHead>
-                  <CreditCard className="md:hidden size-4" />
-                  <span className="hidden md:block">Total Payment</span>
+                  <CalendarDays className="md:hidden size-4 mx-auto" />
+                  <span className="hidden md:block">Created At</span>
                 </TableHead>
                 <TableHead>
-                  <GripHorizontal className="md:hidden size-4" />
+                  <GripHorizontal className="md:hidden size-4 mx-auto" />
                   <span className="hidden md:block text-center">Actions</span>
                 </TableHead>
               </TableRow>
@@ -101,14 +101,13 @@ const ManageTasks = () => {
                     onClick={() => navigateToDetails(task._id)}
                     className="cursor-pointer"
                   >
-                    {format(task.completion_date, "dd LLL yyyy")}
+                    {task.task_owner_email}
                   </TableCell>
                   <TableCell
                     onClick={() => navigateToDetails(task._id)}
                     className="cursor-pointer"
                   >
-                    <span className="opacity-70">$</span>
-                    {task.payable_amount * task.required_workers}
+                    {format(task.date_added, "dd LLL yyyy 'at' h:mm a")}
                   </TableCell>
                   <TableCell>
                     <div className="flex gap-2 justify-center">
