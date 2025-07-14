@@ -47,6 +47,13 @@ const useTaskApi = () => {
     return axiosSecure.get(`/tasks?${query}`).then((res) => res.data);
   };
 
+  const getTasksCount = (count_property?: string) => {
+    const query = count_property
+      ? `?count_property=${encodeURIComponent(count_property)}`
+      : "";
+    return axiosSecure.get(`/tasks/count${query}`).then((res) => res.data);
+  };
+
   const postNewTask = (newTask: newTaskType) => {
     return axiosSecure.post("/tasks", newTask).then((res) => res.data);
   };
@@ -62,7 +69,7 @@ const useTaskApi = () => {
       .then((res) => res.data);
   };
 
-  return { getTasks, postNewTask, updateTask, deleteTask };
+  return { getTasks, getTasksCount, postNewTask, updateTask, deleteTask };
 };
 
 export default useTaskApi;
