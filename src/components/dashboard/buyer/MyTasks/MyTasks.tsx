@@ -15,7 +15,13 @@ import { useMyTasksStore } from "@/hooks/stores/useMyTasksStore/useMyTasksStore"
 import { useDBUser } from "@/hooks/useDBUser/useDBUser";
 import type { TaskType } from "@/types/taskTypes/taskType";
 import { format } from "date-fns";
-import { CircleCheck, Clock, CreditCard, GripHorizontal } from "lucide-react";
+import {
+  CircleCheck,
+  Clock,
+  CreditCard,
+  GripHorizontal,
+  Hash,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
@@ -58,21 +64,24 @@ const MyTasks = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-20 hidden md:table-cell">SL.</TableHead>
+                <TableHead className="w-fit">
+                  <Hash className="md:hidden size-4" />
+                  <span className="hidden md:block">Sl.</span>
+                </TableHead>
                 <TableHead>
                   <CircleCheck className="md:hidden size-4" />
                   <span className="hidden md:block">Title</span>
                 </TableHead>
                 <TableHead>
-                  <Clock className="md:hidden size-4" />
+                  <Clock className="md:hidden size-4 mx-auto" />
                   <span className="hidden md:block">Completion Date</span>
                 </TableHead>
                 <TableHead>
-                  <CreditCard className="md:hidden size-4" />
+                  <CreditCard className="md:hidden size-4 mx-auto" />
                   <span className="hidden md:block">Total Payment</span>
                 </TableHead>
                 <TableHead>
-                  <GripHorizontal className="md:hidden size-4" />
+                  <GripHorizontal className="md:hidden size-4 mx-auto" />
                   <span className="hidden md:block">Actions</span>
                 </TableHead>
               </TableRow>
@@ -82,13 +91,13 @@ const MyTasks = () => {
                 <TableRow key={task._id}>
                   <TableCell
                     onClick={() => navigateToDetails(task._id)}
-                    className="font-medium hidden md:table-cell cursor-pointer"
+                    className="font-medium cursor-pointer"
                   >
                     {idx + 1}
                   </TableCell>
                   <TableCell
                     onClick={() => navigateToDetails(task._id)}
-                    className="cursor-pointer max-w-[50ch] truncate whitespace-nowrap"
+                    className="cursor-pointer max-w-48 truncate"
                   >
                     {task.task_title}
                   </TableCell>

@@ -17,7 +17,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
     <header className={className}>
       <h2
         className={
-          `font-fancy text-2xl md:text-3xl font-semibold` +
+          `font-fancy text-2xl md:text-3xl font-medium` +
           " " +
           headingClassName
         }

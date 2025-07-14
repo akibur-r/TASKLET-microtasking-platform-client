@@ -111,13 +111,15 @@ const TaskDetails = () => {
   return (
     <div>
       {taskLoading ? (
-        <LoaderSpinner />
+        <div className="flex justify-center">
+          <LoaderSpinner />
+        </div>
       ) : task ? (
         <>
           <section className="space-y-4">
             <header className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-x-16 gap-y-4">
               <div className="space-y-4 text-center md:text-left">
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-fancy">
+                <h1 className="text-3xl md:text-4xl  font-fancy">
                   Task: {task.task_title}
                 </h1>
                 <div className="grid md:grid-cols-2 gap-2 lg:gap-3">
@@ -168,14 +170,17 @@ const TaskDetails = () => {
 
             <main className="space-y-4">
               <div className="text-center md:text-left space-y-2">
-                <SectionHeader name="Description" headingClassName="text-xl" />
+                <SectionHeader
+                  name="Description"
+                  headingClassName="text-xl md:text-xl"
+                />
                 <p>{task.task_detail}</p>
               </div>
 
               <div className="text-center md:text-left space-y-2">
                 <SectionHeader
                   name="Submission Details"
-                  headingClassName="text-xl"
+                  headingClassName="text-xl md:text-xl"
                 />
                 <p className="text-amber-600 dark:text-amber-400">
                   {task.submission_info}
@@ -187,7 +192,7 @@ const TaskDetails = () => {
                   <SectionHeader
                     name="Submit Your Work"
                     className="text-center md:text-left"
-                    headingClassName="text-xl"
+                    headingClassName="text-xl md:text-xl"
                   />
                   <Card className="p-2 md:p-3">
                     <CardContent className="p-2 md:p-3">

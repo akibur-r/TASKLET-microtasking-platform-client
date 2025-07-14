@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
 import { useMyTasksStore } from "@/hooks/stores/useMyTasksStore/useMyTasksStore";
 import type { TaskType } from "@/types/taskTypes/taskType";
@@ -38,7 +39,6 @@ const TaskUpdateButton = ({ task, showText = false }: Props) => {
     e.preventDefault();
     setLoading(true);
 
-    // Read values from refs safely
     const updatedTask: Partial<TaskType> = {
       task_title: titleRef.current?.value ?? "",
       task_detail: detailRef.current?.value ?? "",
@@ -84,44 +84,51 @@ const TaskUpdateButton = ({ task, showText = false }: Props) => {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="space-y-4" showCloseButton={false}>
+      <DialogContent
+        className="max-w-screen-md w-full space-y-4"
+        showCloseButton={false}
+      >
         <DialogHeader>
           <DialogTitle>Edit Task</DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit}>
-          <div className="space-y-3">
-            <div className="md:col-span-2 grid gap-3">
-              <Label htmlFor="task_title">Task Title</Label>
-              <Input
-                id="task_title"
-                type="text"
-                name="task_title"
-                placeholder="e.g. Watch my YouTube video"
-                defaultValue={task.task_title}
-                ref={titleRef}
-              />
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <ScrollArea className="h-[50vh]">
+            <div className="space-y-3 w-full">
+              <div className="grid gap-3">
+                <Label htmlFor="task_title">Task Title</Label>
+                <Input
+                  id="task_title"
+                  type="text"
+                  name="task_title"
+                  placeholder="e.g. Watch my YouTube video"
+                  className="w-full"
+                  defaultValue={task.task_title}
+                  ref={titleRef}
+                />
+              </div>
+              <div className="grid gap-3">
+                <Label htmlFor="task_detail">Task Details</Label>
+                <Textarea
+                  name="task_detail"
+                  className="w-full"
+                  placeholder="Task detail (describe clearly)"
+                  defaultValue={task.task_detail}
+                  ref={detailRef}
+                />
+              </div>
+              <div className="grid gap-3">
+                <Label htmlFor="submission_info">Submission Info</Label>
+                <Input
+                  id="submission_info"
+                  name="submission_info"
+                  placeholder="What to submit (e.g. Screenshot)"
+                  defaultValue={task.submission_info}
+                  ref={submissionInfoRef}
+                />
+              </div>
             </div>
-            <div className="md:col-span-2 grid gap-3">
-              <Label htmlFor="task_detail">Task Details</Label>
-              <Textarea
-                name="task_detail"
-                placeholder="Task detail (describe clearly)"
-                defaultValue={task.task_detail}
-                ref={detailRef}
-              />
-            </div>
-            <div className="grid gap-3">
-              <Label htmlFor="submission_info">Submission Info</Label>
-              <Input
-                id="submission_info"
-                name="submission_info"
-                placeholder="What to submit (e.g. Screenshot)"
-                defaultValue={task.submission_info}
-                ref={submissionInfoRef}
-              />
-            </div>
-          </div>
+          </ScrollArea>
 
           <DialogFooter className="pt-2">
             <DialogClose asChild>
