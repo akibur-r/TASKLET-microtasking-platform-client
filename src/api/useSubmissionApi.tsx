@@ -5,7 +5,8 @@ import type {
 } from "@/types/submissionTypes/submissionTypes";
 
 type GetSubmissionsParams = {
-  user_email?: string;
+  worker_email?: string;
+  buyer_email?: string;
   task_id?: string;
   sort_by?: "submission_date";
   order?: "asc" | "desc";
@@ -17,7 +18,8 @@ const useSubmissionApi = () => {
   const axiosSecure = useAxiosSecure();
 
   const getSubmissions = ({
-    user_email = "",
+    worker_email = "",
+    buyer_email = "",
     task_id = "",
     sort_by = "submission_date",
     order = "desc",
@@ -26,8 +28,10 @@ const useSubmissionApi = () => {
   }: GetSubmissionsParams) => {
     const queryParams: string[] = [];
 
-    if (user_email)
-      queryParams.push(`user_email=${encodeURIComponent(user_email)}`);
+    if (worker_email)
+      queryParams.push(`worker_email=${encodeURIComponent(worker_email)}`);
+    if (buyer_email)
+      queryParams.push(`buyer_email=${encodeURIComponent(buyer_email)}`);
     if (task_id) queryParams.push(`task_id=${encodeURIComponent(task_id)}`);
     if (sort_by) queryParams.push(`sort_by=${sort_by}`);
     if (order) queryParams.push(`order=${order}`);
@@ -40,7 +44,9 @@ const useSubmissionApi = () => {
   };
 
   const addSubmission = (newSubmission: NewSubmissionType) => {
-    return axiosSecure.post("/submissions", newSubmission).then((res) => res.data);
+    return axiosSecure
+      .post("/submissions", newSubmission)
+      .then((res) => res.data);
   };
 
   const updateSubmission = (payload: Partial<SubmissionType>) => {

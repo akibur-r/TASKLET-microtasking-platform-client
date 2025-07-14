@@ -10,6 +10,7 @@ import PurchaseCoins from "@/components/dashboard/buyer/PurchaseCoins/PurchaseCo
 import DashboardOverview from "@/components/dashboard/DashboardOverview/DashboardOverview";
 import TaskDetails from "@/components/dashboard/task/TaskDetails/TaskDetails";
 import AvailableTasks from "@/components/dashboard/worker/AvailableTasks/AvailableTasks";
+import MySubmissions from "@/components/dashboard/worker/MySubmissions/MySubmissions";
 import Unauthorized from "@/components/shared/Unauthorized/Unauthorized";
 import AuthLayout from "@/layouts/AuthLayout";
 import DashboardLayout from "@/layouts/DashboardLayout";
@@ -116,6 +117,14 @@ export const router = createBrowserRouter([
         element: (
           <RoleBasedRouteProvider allowedRoles={["worker"]}>
             <AvailableTasks />
+          </RoleBasedRouteProvider>
+        ),
+      },
+      {
+        path: "/dashboard/my-submissions",
+        element: (
+          <RoleBasedRouteProvider allowedRoles={["worker"]}>
+            <MySubmissions />
           </RoleBasedRouteProvider>
         ),
       },
