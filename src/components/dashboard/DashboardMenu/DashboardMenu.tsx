@@ -7,7 +7,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 export function DashboardMenu({
   items,
@@ -19,6 +19,7 @@ export function DashboardMenu({
   }[];
 }) {
   const { toggleSidebar, isMobile } = useSidebar();
+  const location = useLocation();
   return (
     <SidebarGroup>
       <SidebarMenu>
@@ -36,6 +37,7 @@ export function DashboardMenu({
               <SidebarMenuButton
                 className="cursor-pointer"
                 tooltip={item.title}
+                isActive={location.pathname === item.url}
               >
                 {item.icon && <item.icon />}
                 <span>{item.title}</span>
