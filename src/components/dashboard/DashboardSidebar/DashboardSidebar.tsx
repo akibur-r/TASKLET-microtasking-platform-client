@@ -21,7 +21,7 @@ export function DashboardSidebar({
   const { dbUser, dbUserLoading } = useDBUser();
   const role: dbUserType["role"] = dbUser?.role ?? "default";
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar collapsible="icon"  {...props}>
       <SidebarHeader>
         <DashboardLogo />
       </SidebarHeader>
@@ -29,7 +29,7 @@ export function DashboardSidebar({
         {dbUserLoading ? (
           <LoaderSpinner />
         ) : (
-          <DashboardMenu items={dashboardMenuItems[role]} />
+          <DashboardMenu items={dashboardMenuItems[role]}/>
         )}
       </SidebarContent>
       <SidebarFooter>

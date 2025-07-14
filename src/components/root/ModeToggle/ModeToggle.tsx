@@ -11,14 +11,21 @@ import { Moon, Sun } from "lucide-react";
 interface ModeToggleProps {
   className?: string;
   showTooltip?: boolean;
+  onClickEvent?: () => void;
 }
 
-export function ModeToggle({ className, showTooltip = true }: ModeToggleProps) {
+export function ModeToggle({
+  className,
+  showTooltip = true,
+  onClickEvent = () => {},
+}: ModeToggleProps) {
   const { setTheme, theme } = useTheme();
 
   const handleThemeToggle = () => {
     if (theme === "light") setTheme("dark");
     else setTheme("light");
+
+    onClickEvent();
   };
 
   return (

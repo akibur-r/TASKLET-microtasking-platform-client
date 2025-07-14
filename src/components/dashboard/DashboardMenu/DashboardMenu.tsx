@@ -5,6 +5,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { Link } from "react-router";
 
@@ -17,11 +18,20 @@ export function DashboardMenu({
     icon?: LucideIcon;
   }[];
 }) {
+  const { toggleSidebar, isMobile } = useSidebar();
   return (
     <SidebarGroup>
       <SidebarMenu>
         {items.map((item, idx) => (
-          <Link key={idx} to={item.url}>
+          <Link
+            key={idx}
+            to={item.url}
+            onClick={() => {
+              if (isMobile) {
+                toggleSidebar();
+              }
+            }}
+          >
             <SidebarMenuItem>
               <SidebarMenuButton
                 className="cursor-pointer"

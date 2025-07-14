@@ -59,7 +59,7 @@ const MySubmissions = () => {
     <section className="space-y-4">
       <SectionHeader name="My Submissions" className="text-center" />
       {submissionsLoading ? (
-        <div>
+        <div className="flex justify-center">
           <LoaderSpinner />
         </div>
       ) : submissions?.length ? (

@@ -22,7 +22,7 @@ import { useDBUser } from "@/hooks/useDBUser/useDBUser";
 import useSignOut from "@/hooks/useSignOut/useSignOut";
 
 export function DashboardUserMenu() {
-  const { isMobile } = useSidebar();
+  const { isMobile, toggleSidebar } = useSidebar();
   const { user } = useAuth();
   const handleSignOut = useSignOut();
   const { dbUser } = useDBUser();
@@ -92,7 +92,10 @@ export function DashboardUserMenu() {
             <DropdownMenuSeparator />
             <DropdownMenuItem className="justify-between items-center focus:bg-transparent hover:bg-transparent gap-4 p-0 cursor-default">
               <div
-                onClick={handleSignOut}
+                onClick={() => {
+                  handleSignOut();
+                  toggleSidebar();
+                }}
                 className="p-2 rounded-md flex items-center gap-1 bg-destructive/15 dark:bg-destructive/10 text-destructive w-full cursor-pointer"
               >
                 <LogOut className="text-destructive" />
@@ -102,6 +105,11 @@ export function DashboardUserMenu() {
                 <ModeToggle
                   showTooltip={false}
                   className="p-4 rounded-md bg-neutral-500/15 dark:bg-neutral-500/10"
+                  onClickEvent={() => {
+                    if (isMobile) {
+                      toggleSidebar();
+                    }
+                  }}
                 />
               </div>
             </DropdownMenuItem>
