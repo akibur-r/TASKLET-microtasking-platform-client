@@ -53,24 +53,23 @@ const Register = ({ className, ...props }: React.ComponentProps<"div">) => {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const rawRole = formData.get("role");
-    const role = (["admin", "buyer", "worker"].includes(rawRole as string)
-  ? rawRole
-  : "default") as "admin" | "buyer" | "worker" | "default";
-    const photoFile = formData.get("photo") as File;
+    const role = (
+      ["admin", "buyer", "worker"].includes(rawRole as string)
+        ? rawRole
+        : "default"
+    ) as "admin" | "buyer" | "worker" | "default";
 
     if (!name) return toast.error("You must provide a name");
     if (!email) return toast.error("You must provide a valid email");
     if (password.length < 6)
       return toast.error("Password must be at least 6 characters");
     if (!role) return toast.error("You must select a role");
-    if (!photoFile || photoFile.size === 0)
-      return toast.error("You must upload a profile picture");
 
     setLoading(true);
 
     if (!photoURL) {
       setLoading(false);
-      return toast.error("Failed to upload profile picture");
+      return toast.error("You must properly upload a profile picture.");
     }
 
     createUser(email, password)

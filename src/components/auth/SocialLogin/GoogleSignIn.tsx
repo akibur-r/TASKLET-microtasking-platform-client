@@ -16,7 +16,7 @@ const GoogleSignIn = () => {
       .then((res) => {
         const email = res.user.email;
 
-        addUserPromise({ email: email || "", role: "buyer" })
+        addUserPromise({ email: email || "", role: "buyer", name: res.user.displayName || "" })
           .then(() => {
             toast.success("Signed In.", {
               description: "You can now access exclusive features.",

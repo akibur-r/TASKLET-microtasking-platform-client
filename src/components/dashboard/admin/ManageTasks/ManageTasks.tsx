@@ -44,7 +44,6 @@ const ManageTasks = () => {
 
     fetchTasks();
   }, [dbUser]);
-  console.log(myTasks);
 
   return (
     <section className="space-y-8">

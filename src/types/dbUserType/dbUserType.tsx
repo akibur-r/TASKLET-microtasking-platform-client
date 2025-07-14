@@ -4,6 +4,7 @@ export type dbUserType = {
   email: string;
   role: "admin" | "worker" | "buyer" | "default";
   coinBalance: number;
+  joinDate: string;
 };
 
 export type newDBUserType = {
