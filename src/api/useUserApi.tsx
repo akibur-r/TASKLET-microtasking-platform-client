@@ -16,6 +16,10 @@ const useUserApi = () => {
     return axiosSecure.get("/users/payments").then((res) => res.data);
   };
 
+  const getUserPaymentsCountPromise = () => {
+    return axiosSecure.get(`/users/payments/count`).then((res) => res.data);
+  };
+
   const addUserPaymentPromise = (paymentInfo: PaymentType) => {
     return axiosSecure
       .post("/users/payments", paymentInfo)
@@ -32,6 +36,7 @@ const useUserApi = () => {
     getUserInfoPromise,
     getAllUserInfoPromise,
     getUserPaymentPromise,
+    getUserPaymentsCountPromise,
     addUserPaymentPromise,
     deleteUserPromise,
   };
