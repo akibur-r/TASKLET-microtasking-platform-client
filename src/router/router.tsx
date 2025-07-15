@@ -11,6 +11,7 @@ import DashboardOverview from "@/components/dashboard/DashboardOverview/Dashboar
 import TaskDetails from "@/components/dashboard/task/TaskDetails/TaskDetails";
 import AvailableTasks from "@/components/dashboard/worker/AvailableTasks/AvailableTasks";
 import MySubmissions from "@/components/dashboard/worker/MySubmissions/MySubmissions";
+import Withdrawals from "@/components/dashboard/worker/Withdrawals/Withdrawals";
 import ErrorElement from "@/components/shared/ErrorElement/ErrorElement";
 import Unauthorized from "@/components/shared/Unauthorized/Unauthorized";
 import AuthLayout from "@/layouts/AuthLayout";
@@ -135,6 +136,14 @@ export const router = createBrowserRouter([
           </RoleBasedRouteProvider>
         ),
       },
+      {
+        path: "/dashboard/withdrawals",
+        element: (
+          <RoleBasedRouteProvider allowedRoles={["worker"]}>
+            <Withdrawals />
+          </RoleBasedRouteProvider>
+        ),
+      },
       // shared --
       {
         path: "/dashboard/task/details/:taskId",
@@ -146,6 +155,7 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  // other [error routes]
   {
     path: "/unauthorized",
     Component: Unauthorized,
