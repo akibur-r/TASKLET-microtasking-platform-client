@@ -1,4 +1,4 @@
-import useUserApi from "@/api/useUserApi";
+import useUserApi from "@/api/secure/useUserApi";
 import LoaderSpinner from "@/components/shared/LoaderSpinner/LoaderSpinner";
 import SectionHeader from "@/components/shared/SectionHeader/SectionHeader";
 import UserDeleteButton from "@/components/shared/users/UserDeleteButton/UserDeleteButton";
@@ -24,7 +24,7 @@ import {
 import { useEffect } from "react";
 
 const ManageUsers = () => {
-  const { getAllUserInfoPromise } = useUserApi();
+  const { getUsersInfoPromise } = useUserApi();
   const { dbUser } = useDBUser();
   const {
     dbUsers,
@@ -37,7 +37,7 @@ const ManageUsers = () => {
     const fetchTasks = async () => {
       try {
         setDBUsersLoading(true);
-        getAllUserInfoPromise()
+        getUsersInfoPromise()
           .then((res) => {
             setDBUsers(res);
           })

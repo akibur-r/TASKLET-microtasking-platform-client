@@ -38,9 +38,9 @@ const useSubmissionApi = () => {
     if (limit) queryParams.push(`limit=${limit}`);
     if (currentPage) queryParams.push(`currentPage=${currentPage}`);
 
-    const query = queryParams.join("&");
+    const query = queryParams.length ? `?${queryParams.join("&")}` : "";
 
-    return axiosSecure.get(`/submissions?${query}`).then((res) => res.data);
+    return axiosSecure.get(`/submissions${query}`).then((res) => res.data);
   };
 
   const addSubmission = (newSubmission: NewSubmissionType) => {

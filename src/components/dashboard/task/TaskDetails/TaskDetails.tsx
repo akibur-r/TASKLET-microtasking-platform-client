@@ -1,5 +1,5 @@
-import useSubmissionApi from "@/api/useSubmissionApi";
-import useTaskApi from "@/api/useTaskApi";
+import useSubmissionApi from "@/api/secure/useSubmissionApi";
+import useTaskApi from "@/api/secure/useTaskApi";
 import LoaderSpinner from "@/components/shared/LoaderSpinner/LoaderSpinner";
 import SectionHeader from "@/components/shared/SectionHeader/SectionHeader";
 import { Button } from "@/components/ui/button";

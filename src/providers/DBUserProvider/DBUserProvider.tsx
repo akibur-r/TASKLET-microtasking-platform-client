@@ -1,4 +1,4 @@
-import useUserApi from "@/api/useUserApi";
+import useUserApi from "@/api/secure/useUserApi";
 import { useAuth } from "@/hooks/useAuth/useAuth";
 import type { dbUserType } from "@/types/dbUserType/dbUserType";
 import { createContext, useEffect, useState, type ReactNode } from "react";
@@ -60,8 +60,8 @@ const DBUserProvider = ({ children }: Props) => {
 
   const updateCoinBalance = (value: number) => {
     if (dbUser) {
-     const newCoinBalance = dbUser.coinBalance += value;
-     setDBUser({...dbUser, coinBalance: newCoinBalance});
+      const newCoinBalance = (dbUser.coinBalance += value);
+      setDBUser({ ...dbUser, coinBalance: newCoinBalance });
     }
   };
 

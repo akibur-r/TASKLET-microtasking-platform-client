@@ -1,4 +1,4 @@
-import useUserApi from "@/api/useUserApi";
+import useUserApi from "@/api/secure/useUserApi";
 import LoaderSpinner from "@/components/shared/LoaderSpinner/LoaderSpinner";
 import { Button } from "@/components/ui/button";
 import {

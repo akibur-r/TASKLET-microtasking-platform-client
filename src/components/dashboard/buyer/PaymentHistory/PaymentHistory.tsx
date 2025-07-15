@@ -1,4 +1,4 @@
-import useUserApi from "@/api/useUserApi";
+import useUserApi from "@/api/secure/useUserApi";
 import LoaderSpinner from "@/components/shared/LoaderSpinner/LoaderSpinner";
 import SectionHeader from "@/components/shared/SectionHeader/SectionHeader";
 import {
@@ -55,23 +55,33 @@ const PaymentHistory = () => {
               <TableRow>
                 <TableHead className="w-fit">
                   <FaHashtag className="md:hidden size-4" />
-                  <span className="hidden md:block text-amber-600 dark:text-accent">SL.</span>
+                  <span className="hidden md:block text-amber-600 dark:text-accent">
+                    SL.
+                  </span>
                 </TableHead>
                 <TableHead>
                   <FaCalendarAlt className="md:hidden size-4" />
-                  <span className="hidden md:block text-amber-600 dark:text-accent">Payment Time</span>
+                  <span className="hidden md:block text-amber-600 dark:text-accent">
+                    Payment Time
+                  </span>
                 </TableHead>
                 <TableHead className="text-center">
                   <FaCoins className="md:hidden size-4 mx-auto" />
-                  <span className="hidden md:block text-amber-600 dark:text-accent">Coin Amount</span>
+                  <span className="hidden md:block text-amber-600 dark:text-accent">
+                    Coin Amount
+                  </span>
                 </TableHead>
                 <TableHead className="text-center">
                   <FaDollarSign className="md:hidden size-4 mx-auto" />
-                  <span className="hidden md:block text-amber-600 dark:text-accent">Price</span>
+                  <span className="hidden md:block text-amber-600 dark:text-accent">
+                    Price
+                  </span>
                 </TableHead>
                 <TableHead className="text-center">
                   <FaCreditCard className="md:hidden size-4 mx-auto" />
-                  <span className="hidden md:block text-amber-600 dark:text-accent">Payment Method</span>
+                  <span className="hidden md:block text-amber-600 dark:text-accent">
+                    Payment Method
+                  </span>
                 </TableHead>
               </TableRow>
             </TableHeader>

@@ -38,7 +38,7 @@ const Unauthorized = () => {
             size={"sm"}
             className="bg-amber-600/40 hover:bg-amber-600/60"
           >
-            <Link to={"/"}>Go to Homepage</Link>
+            <Link to={"/dashboard"}>Go to Dashboard</Link>
           </Button>
           <Button
             onClick={() => navigate(-1)}

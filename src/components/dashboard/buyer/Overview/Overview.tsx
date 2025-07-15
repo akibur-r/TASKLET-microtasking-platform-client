@@ -1,5 +1,5 @@
-import useTaskApi from "@/api/useTaskApi";
-import useUserApi from "@/api/useUserApi";
+import useTaskApi from "@/api/secure/useTaskApi";
+import useUserApi from "@/api/secure/useUserApi";
 import LoaderSpinner from "@/components/shared/LoaderSpinner/LoaderSpinner";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";

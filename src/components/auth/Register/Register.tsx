@@ -1,4 +1,4 @@
-import useAuthUserApi from "@/api/useAuthUserApi";
+import useAuthUserApi from "@/api/open/useAuthUserApi";
 import RegisterVector from "@/assets/vectors/register.svg";
 import LoaderSpinner from "@/components/shared/LoaderSpinner/LoaderSpinner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -80,7 +80,7 @@ const Register = ({ className, ...props }: React.ComponentProps<"div">) => {
       .then(() => {
         updateUser({ displayName: name, photoURL: photoURL })
           .then(() => {
-            addUserPromise({ email, role, name })
+            addUserPromise({ email, role, name, photoURL })
               .then(() => {
                 toast.success("Account created successfully", {
                   description: "You can now access exclusive contents.",

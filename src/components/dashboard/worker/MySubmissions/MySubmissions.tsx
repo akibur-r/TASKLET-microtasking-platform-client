@@ -1,4 +1,4 @@
-import useSubmissionApi from "@/api/useSubmissionApi";
+import useSubmissionApi from "@/api/secure/useSubmissionApi";
 import LoaderSpinner from "@/components/shared/LoaderSpinner/LoaderSpinner";
 import SectionHeader from "@/components/shared/SectionHeader/SectionHeader";
 import { Badge } from "@/components/ui/badge";

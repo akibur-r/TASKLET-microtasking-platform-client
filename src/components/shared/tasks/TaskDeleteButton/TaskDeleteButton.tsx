@@ -1,4 +1,4 @@
-import useTaskApi from "@/api/useTaskApi";
+import useTaskApi from "@/api/secure/useTaskApi";
 import LoaderSpinner from "@/components/shared/LoaderSpinner/LoaderSpinner";
 import { Button } from "@/components/ui/button";
 import {

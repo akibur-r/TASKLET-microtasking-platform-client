@@ -1,4 +1,4 @@
-import useAuthUserApi from "@/api/useAuthUserApi";
+import useAuthUserApi from "@/api/open/useAuthUserApi";
 import LoaderSpinner from "@/components/shared/LoaderSpinner/LoaderSpinner";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth/useAuth";
@@ -25,6 +25,7 @@ const GoogleSignIn = () => {
           email: email || "",
           role: "buyer",
           name: res.user.displayName || "",
+          photoURL: res.user.photoURL || "",
         })
           .then(() => {
             toast.success("Signed In.", {

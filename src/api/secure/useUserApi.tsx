@@ -1,15 +1,33 @@
 import useAxiosSecure from "@/hooks/useAxiosSecure/useAxiosSecure";
 import type { PaymentType } from "@/types/paymentType/paymentType";
 
+interface GetUsersParams {
+  role?: string;
+  limit?: number;
+  sort_by?: string;
+}
+
 const useUserApi = () => {
   const axiosSecure = useAxiosSecure();
 
   const getUserInfoPromise = () => {
-    return axiosSecure.get("/users").then((res) => res.data);
+    return axiosSecure.get("/user").then((res) => res.data);
   };
 
-  const getAllUserInfoPromise = () => {
-    return axiosSecure.get("/users/all").then((res) => res.data);
+  const getUsersInfoPromise = ({
+    role = "",
+    limit = 0,
+    sort_by = "",
+  }: GetUsersParams = {}) => {
+    const queryParams: string[] = [];
+
+    if (role) queryParams.push(`role=${encodeURIComponent(role)}`);
+    if (limit) queryParams.push(`limit=${limit}`);
+    if (sort_by) queryParams.push(`sort_by=${encodeURIComponent(sort_by)}`);
+
+    const query = queryParams.length ? `?${queryParams.join("&")}` : "";
+
+    return axiosSecure.get(`/users${query}`).then((res) => res.data);
   };
 
   const getUserPaymentPromise = () => {
@@ -34,7 +52,7 @@ const useUserApi = () => {
 
   return {
     getUserInfoPromise,
-    getAllUserInfoPromise,
+    getUsersInfoPromise,
     getUserPaymentPromise,
     getUserPaymentsCountPromise,
     addUserPaymentPromise,
