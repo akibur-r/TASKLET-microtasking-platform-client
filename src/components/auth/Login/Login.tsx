@@ -79,7 +79,7 @@ const Login = ({ className, ...props }: React.ComponentProps<"div">) => {
                 <Input name="password" id="password" type="password" required />
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? <LoaderSpinner size={12} /> : "Login"}
+                {loading ? <LoaderSpinner size={4} /> : "Login"}
               </Button>
               <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                 <span className="bg-card text-muted-foreground relative px-2">

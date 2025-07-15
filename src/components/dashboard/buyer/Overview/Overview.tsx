@@ -1,12 +1,15 @@
 import useTaskApi from "@/api/secure/useTaskApi";
 import useUserApi from "@/api/secure/useUserApi";
 import LoaderSpinner from "@/components/shared/LoaderSpinner/LoaderSpinner";
+import SectionHeader from "@/components/shared/SectionHeader/SectionHeader";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useDBUser } from "@/hooks/useDBUser/useDBUser";
 import { ClipboardList, Coins, DollarSign, Hourglass } from "lucide-react";
 import { useEffect, useState } from "react";
+import PendingSubmissions from "./PendingSubmissions/PendingSubmissions";
 
 const Overview = () => {
   const { getTasksCount } = useTaskApi();
@@ -60,11 +63,14 @@ const Overview = () => {
 
   return (
     <section className="space-y-4">
-      <header>
-        <h2 className="text-xl font-medium font-fancy">{dbUser?.name}</h2>
+      <header className="text-center flex gap-2 items-center justify-center">
+        <h2 className="text-2xl lg:text-3xl font-medium font-fancy">
+          {dbUser?.name}
+        </h2>
         <Badge variant={"success"}>{dbUser?.role}</Badge>
       </header>
-      <main>
+      <Separator />
+      <main className="space-y-4 md:space-y-8">
         <div className="grid md:grid-cols-3 gap-x-4 gap-y-3">
           {loading ? (
             <>
@@ -132,6 +138,12 @@ const Overview = () => {
             </>
           )}
         </div>
+
+        <section className="space-y-2">
+          <SectionHeader name="Pending Submissions" />
+          <Separator />
+          <PendingSubmissions />
+        </section>
       </main>
     </section>
   );

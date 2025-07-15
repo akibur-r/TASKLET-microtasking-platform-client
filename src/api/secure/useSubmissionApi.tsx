@@ -12,6 +12,7 @@ type GetSubmissionsParams = {
   order?: "asc" | "desc";
   limit?: number;
   currentPage?: number;
+  status?: string;
 };
 
 const useSubmissionApi = () => {
@@ -25,6 +26,7 @@ const useSubmissionApi = () => {
     order = "desc",
     limit = 0,
     currentPage = 0,
+    status = "",
   }: GetSubmissionsParams) => {
     const queryParams: string[] = [];
 
@@ -37,6 +39,7 @@ const useSubmissionApi = () => {
     if (order) queryParams.push(`order=${order}`);
     if (limit) queryParams.push(`limit=${limit}`);
     if (currentPage) queryParams.push(`currentPage=${currentPage}`);
+    if (status) queryParams.push(`status=${status}`);
 
     const query = queryParams.length ? `?${queryParams.join("&")}` : "";
 
@@ -56,10 +59,25 @@ const useSubmissionApi = () => {
       .then((res) => res.data);
   };
 
+  const updateSubmissionStatus = (
+    submission_id: string,
+    update_value: "approved" | "rejected"
+  ) => {
+    // Sending params via query string
+    return axiosSecure
+      .put(
+        `/submissions/status?submission_id=${encodeURIComponent(
+          submission_id
+        )}&update_value=${update_value}`
+      )
+      .then((res) => res.data);
+  };
+
   return {
     getSubmissions,
     addSubmission,
     updateSubmission,
+    updateSubmissionStatus,
   };
 };
 

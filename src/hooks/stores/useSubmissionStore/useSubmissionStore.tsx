@@ -6,6 +6,7 @@ interface SubmissionStore {
   submissionsLoading: boolean;
   setSubmissions: (submissions: SubmissionType[]) => void;
   setSubmissionsLoading: (loading: boolean) => void;
+  removeSubmission: (id: string) => void;
 }
 
 export const useSubmissionStore = create<SubmissionStore>((set) => ({
@@ -14,4 +15,8 @@ export const useSubmissionStore = create<SubmissionStore>((set) => ({
 
   setSubmissions: (submissions) => set({ submissions }),
   setSubmissionsLoading: (loading) => set({ submissionsLoading: loading }),
+  removeSubmission: (id) =>
+    set((state) => ({
+      submissions: state.submissions?.filter((s) => s._id !== id) || [],
+    })),
 }));

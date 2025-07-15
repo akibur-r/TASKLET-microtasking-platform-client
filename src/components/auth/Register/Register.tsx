@@ -198,7 +198,7 @@ const Register = ({ className, ...props }: React.ComponentProps<"div">) => {
 
                 <div className="w-full">
                   <Button type="submit" className="w-full" disabled={loading}>
-                    {loading ? <LoaderSpinner size={12} /> : "Register"}
+                    {loading ? <LoaderSpinner size={4} /> : "Register"}
                   </Button>
                 </div>
               </div>
