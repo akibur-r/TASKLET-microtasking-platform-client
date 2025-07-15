@@ -2,6 +2,7 @@ import {
   Brackets,
   History,
   House,
+  LayoutGrid,
   ListChecks,
   ListTodo,
   Plus,
@@ -17,7 +18,7 @@ export const dashboardMenuItems = {
     {
       title: "Overview",
       url: "/dashboard",
-      icon: House,
+      icon: LayoutGrid,
     },
     {
       title: "Available Tasks",

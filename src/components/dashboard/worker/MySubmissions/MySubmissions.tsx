@@ -14,13 +14,7 @@ import { useSubmissionStore } from "@/hooks/stores/useSubmissionStore/useSubmiss
 import { useDBUser } from "@/hooks/useDBUser/useDBUser";
 import type { SubmissionType } from "@/types/submissionTypes/submissionTypes";
 import { format } from "date-fns";
-import {
-  Clock,
-  CreditCard,
-  GripHorizontal,
-  Hash,
-  ListTodo,
-} from "lucide-react";
+import { CircleDot, Clock, CreditCard, Hash, ListTodo } from "lucide-react";
 import { useEffect } from "react";
 
 const MySubmissions = () => {
@@ -84,7 +78,7 @@ const MySubmissions = () => {
                   <span className="hidden md:block">Payment</span>
                 </TableHead>
                 <TableHead>
-                  <GripHorizontal className="md:hidden size-4 mx-auto" />
+                  <CircleDot className="md:hidden size-4 mx-auto" />
                   <span className="hidden md:block">Status</span>
                 </TableHead>
               </TableRow>

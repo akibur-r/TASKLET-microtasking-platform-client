@@ -11,6 +11,7 @@ import DashboardOverview from "@/components/dashboard/DashboardOverview/Dashboar
 import TaskDetails from "@/components/dashboard/task/TaskDetails/TaskDetails";
 import AvailableTasks from "@/components/dashboard/worker/AvailableTasks/AvailableTasks";
 import MySubmissions from "@/components/dashboard/worker/MySubmissions/MySubmissions";
+import ErrorElement from "@/components/shared/ErrorElement/ErrorElement";
 import Unauthorized from "@/components/shared/Unauthorized/Unauthorized";
 import AuthLayout from "@/layouts/AuthLayout";
 import DashboardLayout from "@/layouts/DashboardLayout";
@@ -21,9 +22,11 @@ import RoleBasedRouteProvider from "@/providers/RoleBasedRouteProvider/RoleBased
 import { createBrowserRouter } from "react-router";
 
 export const router = createBrowserRouter([
+  // root
   {
     path: "/",
     Component: RootLayout,
+    errorElement: <ErrorElement />,
     children: [
       {
         index: true,
@@ -31,9 +34,11 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  // auth
   {
     path: "/auth",
     Component: AuthLayout,
+    errorElement: <ErrorElement />,
     children: [
       {
         index: true,
@@ -49,8 +54,10 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  // dashboard
   {
     path: "/dashboard",
+    errorElement: <ErrorElement />,
     element: (
       <PrivateRouteProvider>
         <DashboardLayout />
