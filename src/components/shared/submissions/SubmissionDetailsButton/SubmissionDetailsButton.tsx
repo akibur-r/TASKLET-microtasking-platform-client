@@ -19,7 +19,7 @@ const SubmissionDetailsButton = ({
         <Button
           variant="secondary"
           size="sm"
-          className=" bg-blue-200/50 hover:bg-blue-200/15 hover:text-blue-200 cursor-pointer text-base-content border border-blue-200/20"
+          className=" bg-amber-500/50 hover:bg-amber-500/15 hover:text-amber-500 cursor-pointer text-base-content border border-amber-500/20"
         >
           <Info />
           {showText && <span className="ml-1">Delete</span>}

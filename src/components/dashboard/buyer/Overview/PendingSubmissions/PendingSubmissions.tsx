@@ -1,5 +1,6 @@
 import useSubmissionApi from "@/api/secure/useSubmissionApi";
 import LoaderSpinner from "@/components/shared/LoaderSpinner/LoaderSpinner";
+import SubmissionApproveButton from "@/components/shared/submissions/SubmissionApproveButton/SubmissionApproveButton";
 import SubmissionDetailsButton from "@/components/shared/submissions/SubmissionDetailsButton/SubmissionDetailsButton";
 import {
   Table,
@@ -80,6 +81,7 @@ const PendingSubmissions = () => {
                 <TableCell>
                   <div className="flex justify-center gap-2">
                     <SubmissionDetailsButton submission={submission} />
+                    <SubmissionApproveButton submissionId={submission._id} />
                   </div>
                 </TableCell>
               </TableRow>

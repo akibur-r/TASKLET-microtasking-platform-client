@@ -52,24 +52,15 @@ const useSubmissionApi = () => {
       .then((res) => res.data);
   };
 
-  const updateSubmission = (payload: Partial<SubmissionType>) => {
-    const { _id, ...body } = payload;
+  const updateSubmission = ({
+    body,
+    id = "",
+  }: {
+    body: Partial<SubmissionType>;
+    id: string;
+  }) => {
     return axiosSecure
-      .put(`/submissions?id=${_id}`, body)
-      .then((res) => res.data);
-  };
-
-  const updateSubmissionStatus = (
-    submission_id: string,
-    update_value: "approved" | "rejected"
-  ) => {
-    // Sending params via query string
-    return axiosSecure
-      .put(
-        `/submissions/status?submission_id=${encodeURIComponent(
-          submission_id
-        )}&update_value=${update_value}`
-      )
+      .put(`/submissions?id=${id}`, body)
       .then((res) => res.data);
   };
 
@@ -77,7 +68,6 @@ const useSubmissionApi = () => {
     getSubmissions,
     addSubmission,
     updateSubmission,
-    updateSubmissionStatus,
   };
 };
 
