@@ -33,7 +33,11 @@ const ErrorElement = () => {
           className="hidden dark:block h-full w-full"
         />
         <div className="flex flex-col items-center justify-center">
-          <Button asChild size={"sm"} className="bg-destructive/40 ">
+          <Button
+            asChild
+            size={"sm"}
+            className="bg-destructive/40 hover:bg-destructive/60 "
+          >
             <Link to={"/"}>Go to Homepage</Link>
           </Button>
           <Button
