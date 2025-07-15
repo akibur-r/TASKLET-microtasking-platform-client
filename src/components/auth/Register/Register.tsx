@@ -22,8 +22,13 @@ import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 
 const Register = ({ className, ...props }: React.ComponentProps<"div">) => {
-  const { createUser, updateUser, setLoading, deleteUserFromFirebase } =
-    useAuth();
+  const {
+    createUser,
+    updateUser,
+    loading,
+    setLoading,
+    deleteUserFromFirebase,
+  } = useAuth();
   const { addUserPromise } = useAuthUserApi();
   const navigate = useNavigate();
 
@@ -47,6 +52,7 @@ const Register = ({ className, ...props }: React.ComponentProps<"div">) => {
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
 
     const formData = new FormData(e.currentTarget);
     const name = formData.get("name") as string;
@@ -64,8 +70,6 @@ const Register = ({ className, ...props }: React.ComponentProps<"div">) => {
     if (password.length < 6)
       return toast.error("Password must be at least 6 characters");
     if (!role) return toast.error("You must select a role");
-
-    setLoading(true);
 
     if (!photoURL) {
       setLoading(false);
@@ -98,7 +102,9 @@ const Register = ({ className, ...props }: React.ComponentProps<"div">) => {
       })
       .catch(() => {
         setLoading(false);
-        toast.error("Failed to create account");
+        toast.error("Failed to create account", {
+          description: "Something went wrong",
+        });
       });
   };
 
@@ -191,8 +197,8 @@ const Register = ({ className, ...props }: React.ComponentProps<"div">) => {
                 </Select>
 
                 <div className="w-full">
-                  <Button type="submit" className="w-full ">
-                    Register
+                  <Button type="submit" className="w-full" disabled={loading}>
+                    {loading ? <LoaderSpinner size={12} /> : "Register"}
                   </Button>
                 </div>
               </div>

@@ -1,4 +1,5 @@
 import LoginVector from "@/assets/vectors/login.svg";
+import LoaderSpinner from "@/components/shared/LoaderSpinner/LoaderSpinner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -10,7 +11,7 @@ import { toast } from "sonner";
 import GoogleSignIn from "../SocialLogin/GoogleSignIn";
 
 const Login = ({ className, ...props }: React.ComponentProps<"div">) => {
-  const { signIn, setLoading } = useAuth();
+  const { signIn, setLoading, loading } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -75,19 +76,10 @@ const Login = ({ className, ...props }: React.ComponentProps<"div">) => {
                 />
               </div>
               <div className="grid gap-3">
-                <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
-                  <a
-                    href="#"
-                    className="ml-auto text-sm underline-offset-2 hover:underline"
-                  >
-                    Forgot your password?
-                  </a>
-                </div>
                 <Input name="password" id="password" type="password" required />
               </div>
-              <Button type="submit" className="w-full ">
-                Login
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? <LoaderSpinner size={12} /> : "Login"}
               </Button>
               <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                 <span className="bg-card text-muted-foreground relative px-2">

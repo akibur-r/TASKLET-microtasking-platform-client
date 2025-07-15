@@ -18,7 +18,11 @@ const RoleBasedRouteProvider = ({
   const location = useLocation();
 
   if (authLoading || dbUserLoading) {
-    return <LoaderSpinner />;
+    return (
+      <div className="flex justify-center">
+        <LoaderSpinner />
+      </div>
+    );
   }
 
   if (user?.email && dbUser?.role && allowedRoles.includes(dbUser?.role)) {

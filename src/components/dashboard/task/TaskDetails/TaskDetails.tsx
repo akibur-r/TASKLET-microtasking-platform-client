@@ -135,14 +135,24 @@ const TaskDetails = () => {
                     <h3 className="text-sm text-muted-foreground">Payment</h3>
                     <p>{task.payable_amount} coins per submission</p>
                   </div>
-                  <div>
-                    <h3 className="text-sm text-muted-foreground">
-                      {dbUser?.role === "worker"
-                        ? "Can Submit"
-                        : "Worker Needed"}
-                    </h3>
-                    <p>{task.required_workers} times</p>
-                  </div>
+                  {dbUser?.role === "worker" ? (
+                    <div>
+                      <h3 className="text-sm text-muted-foreground">
+                        Can Submit
+                      </h3>
+                      <p>
+                        {task.required_workers} time
+                        {task.required_workers > 1 && "s"}
+                      </p>
+                    </div>
+                  ) : (
+                    <div>
+                      <h3 className="text-sm text-muted-foreground">
+                        Worker Needed
+                      </h3>
+                      <p>{task.required_workers}</p>
+                    </div>
+                  )}
                   <div className="lg:col-span-2 bg-primary/15 dark:bg-primary/5 border border-primary/30 dark:border-primary/15 rounded-lg p-2">
                     <h3 className="text-sm text-muted-foreground">
                       Remaining Time to Submit

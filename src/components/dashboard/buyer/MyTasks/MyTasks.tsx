@@ -16,7 +16,6 @@ import { useDBUser } from "@/hooks/useDBUser/useDBUser";
 import type { TaskType } from "@/types/taskTypes/taskType";
 import { format } from "date-fns";
 import {
-  CircleCheck,
   Clock,
   CreditCard,
   GripHorizontal,
