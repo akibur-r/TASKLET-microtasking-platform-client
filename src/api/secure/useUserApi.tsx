@@ -16,6 +16,15 @@ type GetUsersCountParams = {
   count_property?: "coinBalance" | null;
 };
 
+interface GetUserPaymentsParams {
+  limit?: number;
+  currentPage?: number;
+  sort_by?: "created_at" | "price";
+  order?: "asc" | "desc";
+  status?: "pending" | "approved" | "rejected";
+  payment_type?: "withdrawal" | "purchase" | "refund";
+}
+
 const useUserApi = () => {
   const axiosSecure = useAxiosSecure();
 
@@ -50,8 +59,10 @@ const useUserApi = () => {
     return axiosSecure.get(`/users/count`, { params }).then((res) => res.data);
   };
 
-  const getUserPaymentPromise = () => {
-    return axiosSecure.get("/users/payments").then((res) => res.data);
+  const getUserPaymentPromise = (params?: GetUserPaymentsParams) => {
+    return axiosSecure
+      .get("/users/payments", { params })
+      .then((res) => res.data);
   };
 
   const getUserPaymentsCountPromise = (body?: Partial<PaymentFromDBType>) => {
