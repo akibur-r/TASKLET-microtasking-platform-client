@@ -44,8 +44,6 @@ const UserRoleUpdateButton = ({
       if (res) {
         updateDBUserByEmail(user.email, { role: role });
       }
-
-      console.log(res);
     } catch (error) {
       console.error("Role update failed:", error);
     } finally {
@@ -67,11 +65,11 @@ const UserRoleUpdateButton = ({
         </Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent className="w-48">
+      <DropdownMenuContent>
         <DropdownMenuLabel>Select Role</DropdownMenuLabel>
+        <DropdownMenuSeparator />
         {["admin", "buyer", "worker"].map((role) => (
           <>
-            <DropdownMenuSeparator />
             <DropdownMenuItem
               key={role}
               onClick={() =>
