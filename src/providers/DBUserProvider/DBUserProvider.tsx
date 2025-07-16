@@ -3,13 +3,12 @@ import { useAuth } from "@/hooks/useAuth/useAuth";
 import type { dbUserType } from "@/types/dbUserType/dbUserType";
 import { createContext, useEffect, useState, type ReactNode } from "react";
 
-// Define shape of user info (customize according to your backend)
-
 interface DBUserContextType {
   dbUser: dbUserType | null;
   setDBUser: (info: dbUserType | null) => void;
   updateCoinBalance: (value: number) => void;
   dbUserLoading: boolean;
+  setDBUserLoading: (value: boolean) => void;
 }
 
 // Create context
@@ -20,7 +19,7 @@ interface Props {
 }
 
 const DBUserProvider = ({ children }: Props) => {
-  const { user, token, loading, setLoading } = useAuth();
+  const { user, token, loading } = useAuth(); // Removed setLoading
   const { getUserInfoPromise } = useUserApi();
 
   const [dbUser, setDBUser] = useState<dbUserType | null>(null);
@@ -29,6 +28,7 @@ const DBUserProvider = ({ children }: Props) => {
   useEffect(() => {
     const fetchUserInfoFromDB = async () => {
       setDBUserLoading(true);
+
       if (!user || !token) {
         setDBUser(null);
         setDBUserLoading(false);
@@ -36,36 +36,29 @@ const DBUserProvider = ({ children }: Props) => {
       }
 
       try {
-        setDBUserLoading(true);
         const data = await getUserInfoPromise();
         if (data) {
           setDBUser(data);
+        } else {
+          setDBUser(null);
         }
       } catch (err) {
         console.error("Failed to fetch user info", err);
         setDBUser(null);
+      } finally {
+        setDBUserLoading(false);
       }
     };
 
-    const fetchData = async () => {
-      if (!loading) {
-        await fetchUserInfoFromDB();
-      }
-    };
-
-    fetchData().then(() => setDBUserLoading(false));
-  }, [user, token, loading]);
-
-  useEffect(() => {
-    if (!dbUserLoading) {
-      setLoading(false);
+    if (!loading) {
+      fetchUserInfoFromDB();
     }
-  }, [dbUserLoading, setLoading]);
+  }, [user, loading]);
 
   const updateCoinBalance = (value: number) => {
     if (dbUser) {
-      const newCoinBalance = (dbUser.coinBalance += value);
-      setDBUser({ ...dbUser, coinBalance: newCoinBalance });
+      const newCoinBalance = dbUser.coinBalance + value;
+      setDBUser({ ...dbUser, coinBalance: newCoinBalance }); // no mutation
     }
   };
 
@@ -74,6 +67,7 @@ const DBUserProvider = ({ children }: Props) => {
     setDBUser,
     dbUserLoading,
     updateCoinBalance,
+    setDBUserLoading,
   };
 
   return (

@@ -2,7 +2,7 @@ import useUserApi from "@/api/secure/useUserApi";
 import LoaderSpinner from "@/components/shared/LoaderSpinner/LoaderSpinner";
 import SectionHeader from "@/components/shared/SectionHeader/SectionHeader";
 import UserDeleteButton from "@/components/shared/users/UserDeleteButton/UserDeleteButton";
-import { Badge } from "@/components/ui/badge";
+import UserRoleUpdateButton from "@/components/shared/users/UserRoleUpdateButton/UserRoleUpdateButton";
 import {
   Table,
   TableBody,
@@ -17,9 +17,13 @@ import type { dbUserType } from "@/types/dbUserType/dbUserType";
 import { format } from "date-fns";
 import {
   AtSign,
+  BriefcaseBusiness,
   CalendarDays,
   ContactRound,
   GripHorizontal,
+  Hammer,
+  Shield,
+  Sparkle,
   Star,
 } from "lucide-react";
 import { useEffect } from "react";
@@ -100,16 +104,9 @@ const ManageUsers = () => {
                 </TableCell>
                 <TableCell>
                   <div className="flex gap-1">
-                    {dbUser.name}
-                    <Badge
-                      className="size-5 flex flex-col rounded-full"
-                      variant={"error"}
-                    >
-                      a
-                    </Badge>
-                    <Badge className="flex flex-col rounded-full bg-accent/10 border border-accent/30">
-                      you
-                    </Badge>
+                    <span>{dbUser.name}</span>
+                    <Shield className="size-3 text-destructive" />
+                    <Sparkle className="size-3 text-rose-600 bg:text-rose-300" />
                   </div>
                 </TableCell>
                 <TableCell>{dbUser?.email}</TableCell>
@@ -117,12 +114,7 @@ const ManageUsers = () => {
                   {format(dbUser?.joinDate || "", "dd LLL yyyy - h:mm a")}
                 </TableCell>
                 <TableCell>
-                  <div className="flex gap-2 justify-center">
-                    <UserDeleteButton
-                      disabled
-                      userEmail={dbUser?.email || ""}
-                    />
-                  </div>
+                  <div className="flex gap-2 justify-center">-</div>
                 </TableCell>
               </TableRow>
               {dbUsers
@@ -133,22 +125,15 @@ const ManageUsers = () => {
                       {idx + 1}
                     </TableCell>
                     <TableCell>
-                      <div className="flex gap-1 flex-wrap">
+                      <div className="flex items-center gap-1 flex-wrap">
                         <span>{user.name}</span>
-                        <Badge
-                          className="size-5 flex flex-col rounded-full"
-                          variant={
-                            user.role === "admin"
-                              ? "error"
-                              : user.role === "buyer"
-                              ? "success"
-                              : user.role === "worker"
-                              ? "warning"
-                              : "destructive"
-                          }
-                        >
-                          {user.role.charAt(0)}
-                        </Badge>
+                        {user.role === "admin" ? (
+                          <Shield className="size-3 text-destructive" />
+                        ) : user.role === "buyer" ? (
+                          <BriefcaseBusiness className="size-3 text-primary" />
+                        ) : (
+                          <Hammer className="size-3 text-accent" />
+                        )}
                       </div>
                     </TableCell>
                     <TableCell>{user.email}</TableCell>
@@ -157,7 +142,8 @@ const ManageUsers = () => {
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-2 justify-center">
-                        <UserDeleteButton userEmail={user?.email || ""} />
+                        <UserDeleteButton userEmail={user.email} />
+                        <UserRoleUpdateButton user={user} />
                       </div>
                     </TableCell>
                   </TableRow>

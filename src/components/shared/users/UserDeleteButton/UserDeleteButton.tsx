@@ -12,8 +12,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useDBUsersStore } from "@/hooks/stores/useDBUserStore/useDBUserStore";
+import { Trash } from "lucide-react";
 import { useState } from "react";
-import { BiTrashAlt } from "react-icons/bi";
 import { toast } from "sonner";
 
 interface Props {
@@ -68,12 +68,12 @@ const UserDeleteButton = ({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
-          variant="destructive"
+          variant="secondary"
           size="sm"
-          className="flex items-center gap-1"
-          disabled={disabled}
+          className=" bg-red-500/50 hover:bg-red-500/15 hover:text-red-500 cursor-pointer text-base-content border border-red-500/20"
+          disabled={disabled || loading}
         >
-          <BiTrashAlt />
+          <Trash />
           {showText && "Delete"}
         </Button>
       </DialogTrigger>

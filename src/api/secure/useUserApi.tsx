@@ -1,4 +1,5 @@
 import useAxiosSecure from "@/hooks/useAxiosSecure/useAxiosSecure";
+import type { dbUserType } from "@/types/dbUserType/dbUserType";
 import type { PaymentType } from "@/types/paymentType/paymentType";
 
 interface GetUsersParams {
@@ -44,6 +45,18 @@ const useUserApi = () => {
       .then((res) => res.data);
   };
 
+  const updateUserPromise = ({
+    body,
+    user_email = "",
+  }: {
+    body: Partial<dbUserType>;
+    user_email: string;
+  }) => {
+    return axiosSecure
+      .put(`/users?user_email=${user_email}`, body)
+      .then((res) => res.data);
+  };
+
   const deleteUserPromise = (user_email: string) => {
     return axiosSecure
       .delete(`/users?user_email=${user_email}`)
@@ -56,6 +69,7 @@ const useUserApi = () => {
     getUserPaymentPromise,
     getUserPaymentsCountPromise,
     addUserPaymentPromise,
+    updateUserPromise,
     deleteUserPromise,
   };
 };
