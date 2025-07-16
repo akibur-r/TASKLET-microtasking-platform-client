@@ -42,7 +42,7 @@ const Overview = () => {
 
     const fetchUserPaymentsCount = async () => {
       try {
-        const res = await getUserPaymentsCountPromise();
+        const res = await getUserPaymentsCountPromise({});
         setUserPaymentsCount(res);
       } catch (error) {
         console.log(error);

@@ -31,13 +31,14 @@ const OverviewStats = () => {
       try {
         const res = await getSubmissionsCount({
           worker_email: dbUser?.email || "--",
-          status: "approved",
+          status: "pending",
         });
         setPendingSubmissionsCount(res);
       } catch (error) {
         console.log(error);
       }
     };
+
     const fetchTotalEarning = async () => {
       try {
         const res = await getSubmissionsCount({
@@ -59,7 +60,7 @@ const OverviewStats = () => {
     };
 
     fetchOverviewData().then(() => setLoading(false));
-  }, []);
+  }, [dbUser]);
 
   return (
     <section className="grid md:grid-cols-3 gap-x-4 gap-y-3">

@@ -1,12 +1,20 @@
 import useAxiosSecure from "@/hooks/useAxiosSecure/useAxiosSecure";
 import type { dbUserType } from "@/types/dbUserType/dbUserType";
-import type { PaymentType } from "@/types/paymentType/paymentType";
+import type {
+  PaymentFromDBType,
+  PaymentType,
+} from "@/types/paymentType/paymentType";
 
 interface GetUsersParams {
   role?: string;
   limit?: number;
   sort_by?: string;
 }
+
+type GetUsersCountParams = {
+  filter?: Partial<dbUserType>;
+  count_property?: "coinBalance" | null;
+};
 
 const useUserApi = () => {
   const axiosSecure = useAxiosSecure();
@@ -31,12 +39,25 @@ const useUserApi = () => {
     return axiosSecure.get(`/users${query}`).then((res) => res.data);
   };
 
+  const getUsersCountPromise = ({
+    filter,
+    count_property = null,
+  }: GetUsersCountParams = {}) => {
+    const params: GetUsersCountParams = {};
+    if (filter) params.filter = filter;
+    if (count_property) params.count_property = count_property;
+
+    return axiosSecure.get(`/users/count`, { params }).then((res) => res.data);
+  };
+
   const getUserPaymentPromise = () => {
     return axiosSecure.get("/users/payments").then((res) => res.data);
   };
 
-  const getUserPaymentsCountPromise = () => {
-    return axiosSecure.get(`/users/payments/count`).then((res) => res.data);
+  const getUserPaymentsCountPromise = (body?: Partial<PaymentFromDBType>) => {
+    return axiosSecure
+      .get(`/users/payments/count`, { params: body })
+      .then((res) => res.data);
   };
 
   const addUserPaymentPromise = (paymentInfo: PaymentType) => {
@@ -66,6 +87,7 @@ const useUserApi = () => {
   return {
     getUserInfoPromise,
     getUsersInfoPromise,
+    getUsersCountPromise,
     getUserPaymentPromise,
     getUserPaymentsCountPromise,
     addUserPaymentPromise,
