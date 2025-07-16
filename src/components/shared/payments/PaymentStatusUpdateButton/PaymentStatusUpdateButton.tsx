@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { usePaymentsStore } from "@/hooks/stores/usePaymentStore/usePaymentStore";
 import type { PaymentFromDBType } from "@/types/paymentType/paymentType";
-import { Settings2 } from "lucide-react";
+import { ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
 import LoaderSpinner from "../../LoaderSpinner/LoaderSpinner";
 
@@ -60,7 +60,7 @@ const PaymentStatusUpdateButton = ({
             <LoaderSpinner />
           ) : (
             <>
-              <Settings2 />
+              <ChevronsUpDown />
               {showText && "Update Status"}
             </>
           )}

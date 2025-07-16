@@ -1,4 +1,5 @@
 import HeroSlider from "@/components/homepage/HeroSlider/HeroSlider";
+import HowItWorksSection from "@/components/homepage/HowItWorksSection/HowItWorksSection";
 import TestimonialSection from "@/components/homepage/TestimonialSection/TestimonialSection";
 import TopWorkersSection from "@/components/homepage/TopWorkersSection/TopWorkersSection";
 
@@ -8,6 +9,7 @@ const HomePage = () => {
       <HeroSlider />
       <TopWorkersSection />
       <TestimonialSection />
+      <HowItWorksSection />
     </div>
   );
 };
