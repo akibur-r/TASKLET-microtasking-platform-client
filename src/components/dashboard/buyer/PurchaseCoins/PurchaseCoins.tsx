@@ -47,6 +47,8 @@ const PurchaseCoins = () => {
       payment_method: "Card",
       payment_type: "purchase",
       user_email: dbUser?.email || "",
+      status: "approved",
+      note: "",
     })
       .then((res) => {
         if (res.insertedId) {

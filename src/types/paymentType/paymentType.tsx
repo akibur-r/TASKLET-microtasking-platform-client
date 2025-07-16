@@ -15,15 +15,22 @@ export const coinPrices: CoinPriceOption[] = [
 export type PaymentType =
   | {
       user_email: string;
-      payment_type: "purchase";
+      payment_type: "purchase" | "refund";
       payment_info: CoinPriceOption;
       payment_method: PaymentMethodType;
+      status: "pending" | "approved";
+      note?: string;
+      message?: string;
     }
   | {
       user_email: string;
-      payment_type: "withdraw";
-      payment_info: number;
+      payment_type: "withdrawal";
+      payment_info: { coins: number; price: number };
       payment_method: PaymentMethodType;
+      status: "pending" | "approved" | "rejected";
+      note?: string;
+      message?: string;
+      account_number: string;
     };
 
 export type PaymentFromDBType = {
@@ -32,6 +39,10 @@ export type PaymentFromDBType = {
   coins: number;
   price: number;
   payment_method: PaymentMethodType;
-  payment_type: "purchase" | "withdraw";
+  payment_type: "purchase" | "refund" | "withdrawal";
   created_at: string;
+  status: string;
+  note?: string;
+  message?: string;
+  account_number?: string;
 };
