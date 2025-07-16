@@ -89,6 +89,18 @@ const useUserApi = () => {
       .then((res) => res.data);
   };
 
+  const updateUserPaymentPromise = ({
+    body,
+    id = "",
+  }: {
+    body: Partial<PaymentFromDBType>;
+    id: string;
+  }) => {
+    return axiosSecure
+      .put(`/users/payments?id=${id}`, body)
+      .then((res) => res.data);
+  };
+
   const deleteUserPromise = (user_email: string) => {
     return axiosSecure
       .delete(`/users?user_email=${user_email}`)
@@ -103,6 +115,7 @@ const useUserApi = () => {
     getUserPaymentsCountPromise,
     addUserPaymentPromise,
     updateUserPromise,
+    updateUserPaymentPromise,
     deleteUserPromise,
   };
 };

@@ -1,5 +1,6 @@
 import useUserApi from "@/api/secure/useUserApi";
 import LoaderSpinner from "@/components/shared/LoaderSpinner/LoaderSpinner";
+import PaymentStatusUpdateButton from "@/components/shared/payments/PaymentStatusUpdateButton/PaymentStatusUpdateButton";
 import SectionHeader from "@/components/shared/SectionHeader/SectionHeader";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -86,6 +87,9 @@ const WithdrawRequests = () => {
                 <TableCell className="text-center">${payment.price}</TableCell>
                 <TableCell>{payment.payment_method}</TableCell>
                 <TableCell>{payment.account_number || "-"}</TableCell>
+                <TableCell>
+                  <PaymentStatusUpdateButton payment={payment} />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
