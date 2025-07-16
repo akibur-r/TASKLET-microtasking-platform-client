@@ -12,7 +12,8 @@ type GetSubmissionsParams = {
   order?: "asc" | "desc";
   limit?: number;
   currentPage?: number;
-  status?: string;
+  status?: "pending" | "approved" | "rejected" | null;
+  count_property?: "payable_amount" | null;
 };
 
 const useSubmissionApi = () => {
@@ -26,7 +27,7 @@ const useSubmissionApi = () => {
     order = "desc",
     limit = 0,
     currentPage = 0,
-    status = "",
+    status = null,
   }: GetSubmissionsParams) => {
     const queryParams: string[] = [];
 
@@ -44,6 +45,30 @@ const useSubmissionApi = () => {
     const query = queryParams.length ? `?${queryParams.join("&")}` : "";
 
     return axiosSecure.get(`/submissions${query}`).then((res) => res.data);
+  };
+
+  const getSubmissionsCount = ({
+    worker_email = "",
+    buyer_email = "",
+    task_id = "",
+    status = null,
+    count_property = null,
+  }: GetSubmissionsParams) => {
+    const queryParams: string[] = [];
+
+    if (worker_email)
+      queryParams.push(`worker_email=${encodeURIComponent(worker_email)}`);
+    if (buyer_email)
+      queryParams.push(`buyer_email=${encodeURIComponent(buyer_email)}`);
+    if (task_id) queryParams.push(`task_id=${encodeURIComponent(task_id)}`);
+    if (status) queryParams.push(`status=${status}`);
+    if (count_property) queryParams.push(`count_property=${count_property}`);
+
+    const query = queryParams.length ? `?${queryParams.join("&")}` : "";
+
+    return axiosSecure
+      .get(`/submissions/count${query}`)
+      .then((res) => res.data);
   };
 
   const addSubmission = (newSubmission: NewSubmissionType) => {
@@ -66,6 +91,7 @@ const useSubmissionApi = () => {
 
   return {
     getSubmissions,
+    getSubmissionsCount,
     addSubmission,
     updateSubmission,
   };
