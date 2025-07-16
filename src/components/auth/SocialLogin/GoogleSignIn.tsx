@@ -62,7 +62,7 @@ const GoogleSignIn = () => {
       disabled={loading}
     >
       {loading ? (
-        <LoaderSpinner size={12} />
+        <LoaderSpinner size={4} />
       ) : (
         <>
           <FcGoogle /> Google

@@ -2,6 +2,7 @@ import useUserApi from "@/api/secure/useUserApi";
 import LoaderSpinner from "@/components/shared/LoaderSpinner/LoaderSpinner";
 import SectionHeader from "@/components/shared/SectionHeader/SectionHeader";
 import UserDeleteButton from "@/components/shared/users/UserDeleteButton/UserDeleteButton";
+import { Badge } from "@/components/ui/badge";
 import {
   Table,
   TableBody,
@@ -67,7 +68,7 @@ const ManageUsers = () => {
           <div className="flex justify-center">
             <LoaderSpinner />
           </div>
-        ) : dbUsers?.length ? (
+        ) : dbUsers?.length && dbUser ? (
           <Table>
             <TableHeader>
               <TableRow>
@@ -97,7 +98,20 @@ const ManageUsers = () => {
                 <TableCell className="font-medium hidden md:table-cell ">
                   <Star className="size-3" />
                 </TableCell>
-                <TableCell>{dbUser?.name}</TableCell>
+                <TableCell>
+                  <div className="flex gap-1">
+                    {dbUser.name}
+                    <Badge
+                      className="size-5 flex flex-col rounded-full"
+                      variant={"error"}
+                    >
+                      a
+                    </Badge>
+                    <Badge className="flex flex-col rounded-full bg-accent/10 border border-accent/30">
+                      you
+                    </Badge>
+                  </div>
+                </TableCell>
                 <TableCell>{dbUser?.email}</TableCell>
                 <TableCell>
                   {format(dbUser?.joinDate || "", "dd LLL yyyy - h:mm a")}
@@ -118,7 +132,25 @@ const ManageUsers = () => {
                     <TableCell className="font-medium hidden md:table-cell ">
                       {idx + 1}
                     </TableCell>
-                    <TableCell>{user.name}</TableCell>
+                    <TableCell>
+                      <div className="flex gap-1 flex-wrap">
+                        <span>{user.name}</span>
+                        <Badge
+                          className="size-5 flex flex-col rounded-full"
+                          variant={
+                            user.role === "admin"
+                              ? "error"
+                              : user.role === "buyer"
+                              ? "success"
+                              : user.role === "worker"
+                              ? "warning"
+                              : "destructive"
+                          }
+                        >
+                          {user.role.charAt(0)}
+                        </Badge>
+                      </div>
+                    </TableCell>
                     <TableCell>{user.email}</TableCell>
                     <TableCell>
                       {format(user.joinDate, "dd LLL yyyy - h:mm a")}

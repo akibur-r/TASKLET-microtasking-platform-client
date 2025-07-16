@@ -224,7 +224,7 @@ const TaskDetails = () => {
                         >
                           {submitLoading ? (
                             <LoaderSpinner
-                              size={12}
+                              size={4}
                               className="text-amber-700 dark:text-amber-500"
                             />
                           ) : (

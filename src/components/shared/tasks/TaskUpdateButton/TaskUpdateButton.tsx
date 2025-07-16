@@ -135,7 +135,7 @@ const TaskUpdateButton = ({ task, showText = false }: Props) => {
               <Button variant="outline">Cancel</Button>
             </DialogClose>
             <Button type="submit" disabled={loading}>
-              {loading ? <LoaderSpinner size={12} /> : "Update"}
+              {loading ? <LoaderSpinner size={4} /> : "Update"}
             </Button>
           </DialogFooter>
         </form>

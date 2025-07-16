@@ -37,10 +37,14 @@ const UserDeleteButton = ({
     try {
       deleteUserPromise(userEmail)
         .then((res) => {
+          console.log(res);
           if (res.deletedCount) {
             deleteUserByEmail(userEmail);
+
+            console.log(res);
+
             toast.success("User deleted", {
-              description: `${res.taskDeleteResult.deletedCount} tasks an ${res.submissionDeleteResult.deletedCount} submissions were deleted.`,
+              description: `${res.taskDeleteResult.deletedCount} tasks and ${res.submissionDeleteResult.deletedCount} submissions were deleted.`,
             });
           } else {
             toast.error("Use not deleted", {
@@ -75,12 +79,22 @@ const UserDeleteButton = ({
         </Button>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent showCloseButton={false}>
         <DialogHeader>
           <DialogTitle>Confirm Delete</DialogTitle>
-          <DialogDescription>
-            Are you sure you want to delete this user? This action cannot be
-            undone.
+          <DialogDescription className="flex flex-col gap-y-1">
+            <p className="inline space-x-0.5">
+              <span>
+                Are you sure you want to delete the user account? All
+                information including all the
+              </span>
+              <span className="font-medium">payment histories</span>,{" "}
+              <span className="font-medium">tasks</span> and{" "}
+              <span className="font-medium">submissions</span> will be deleted.
+            </p>
+            <p className="text-destructive">
+              NOTE: This action cannot be undone.
+            </p>
           </DialogDescription>
         </DialogHeader>
 
