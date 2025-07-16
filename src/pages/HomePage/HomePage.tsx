@@ -1,3 +1,4 @@
+import BlogsSection from "@/components/homepage/BlogsSection/BlogsSection";
 import HeroSlider from "@/components/homepage/HeroSlider/HeroSlider";
 import HowItWorksSection from "@/components/homepage/HowItWorksSection/HowItWorksSection";
 import OurPartners from "@/components/homepage/OurPartnersSection/OurPartners";
@@ -12,6 +13,7 @@ const HomePage = () => {
       <TestimonialSection />
       <HowItWorksSection />
       <OurPartners />
+      <BlogsSection />
     </div>
   );
 };
