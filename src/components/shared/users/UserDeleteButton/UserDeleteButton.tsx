@@ -37,7 +37,6 @@ const UserDeleteButton = ({
     try {
       deleteUserPromise(userEmail)
         .then((res) => {
-          console.log(res);
           if (res.deletedCount) {
             deleteUserByEmail(userEmail);
 

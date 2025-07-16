@@ -38,18 +38,22 @@ const DBUserProvider = ({ children }: Props) => {
       try {
         setDBUserLoading(true);
         const data = await getUserInfoPromise();
-        setDBUser(data);
+        if (data) {
+          setDBUser(data);
+        }
       } catch (err) {
         console.error("Failed to fetch user info", err);
         setDBUser(null);
-      } finally {
-        setDBUserLoading(false);
       }
     };
 
-    if (!loading) {
-      fetchUserInfoFromDB();
-    }
+    const fetchData = async () => {
+      if (!loading) {
+        await fetchUserInfoFromDB();
+      }
+    };
+
+    fetchData().then(() => setDBUserLoading(false));
   }, [user, token, loading]);
 
   useEffect(() => {
