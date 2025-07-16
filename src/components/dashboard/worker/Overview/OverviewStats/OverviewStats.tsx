@@ -74,7 +74,7 @@ const OverviewStats = () => {
       ) : (
         <>
           {/* total submission count */}
-          <Card className="dark:bg-gradient-to-br from-emerald-700/20 via-card to-emerald-700/20 aspect-video md:aspect-auto lg:aspect-video overflow-hidden">
+          <Card className="transition duration-300 dark:bg-gradient-to-br from-emerald-700/20 via-card to-emerald-700/20 hover:bg-none dark:hover:bg-none hover:bg-emerald-700/5 dark:hover:bg-emerald-700/20 aspect-video md:aspect-auto lg:aspect-video overflow-hidden">
             <CardContent className="flex flex-col gap-2 justify-center items-center h-full">
               <CheckCheck className="size-12 p-2 rounded-md opacity-70 border border-emerald-600/50 bg-emerald-700/10 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-500" />
               <h3 className="text-4xl font-bold opacity-90 ">
@@ -87,7 +87,7 @@ const OverviewStats = () => {
           </Card>
 
           {/* pending submission count */}
-          <Card className="dark:bg-gradient-to-br from-amber-700/20 via-card to-amber-700/20 aspect-video md:aspect-auto lg:aspect-video overflow-hidden">
+          <Card className="transition duration-300 dark:bg-gradient-to-br from-amber-700/20 via-card to-amber-700/20 hover:bg-none dark:hover:bg-none hover:bg-amber-700/5 dark:hover:bg-amber-700/10 aspect-video md:aspect-auto lg:aspect-video overflow-hidden">
             <CardContent className="flex flex-col gap-2 justify-center items-center h-full">
               <Loader className="size-12 p-2 rounded-md opacity-70 border border-amber-600/50 bg-amber-700/10 dark:bg-amber-500/20 text-amber-700 dark:text-amber-500" />
               <h3 className="text-4xl font-bold opacity-90 ">
@@ -100,9 +100,9 @@ const OverviewStats = () => {
           </Card>
 
           {/* total earning */}
-          <Card className="dark:bg-gradient-to-br from-blue-700/20 via-card to-blue-700/20 aspect-video md:aspect-auto lg:aspect-video overflow-hidden">
+          <Card className="transition duration-300 dark:bg-gradient-to-br from-sky-700/20 via-card to-sky-700/20 hover:bg-none dark:hover:bg-none hover:bg-sky-700/5 dark:hover:bg-sky-700/10 aspect-video md:aspect-auto lg:aspect-video overflow-hidden">
             <CardContent className="flex flex-col gap-2 justify-center items-center h-full">
-              <DollarSign className="size-12 p-2 rounded-md opacity-70 border border-blue-600/50 bg-blue-700/10 dark:bg-blue-500/20 text-blue-700 dark:text-blue-500" />
+              <DollarSign className="size-12 p-2 rounded-md opacity-70 border border-sky-600/50 bg-sky-700/10 dark:bg-sky-500/20 text-sky-700 dark:text-sky-500" />
               <h3 className="text-4xl font-bold opacity-90 ">{totalEarning}</h3>
               <p className="text-muted-foreground text-center">
                 Total Earnings
