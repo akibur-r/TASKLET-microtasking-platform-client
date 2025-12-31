@@ -59,11 +59,11 @@ export function Navbar() {
           <Link
             target="_blank"
             to={
-              "https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-akibur-r"
+              "https://github.com/akibur-r/TASKLET-microtasking-platform-client"
             }
             className="flex items-center gap-0.5"
           >
-            Join as Developer <ArrowUpRight className="h-4 w-4 text-primary" />
+            View Source Code <ArrowUpRight className="h-4 w-4 text-primary" />
           </Link>
         </nav>
 

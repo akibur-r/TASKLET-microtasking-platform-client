@@ -9,8 +9,6 @@ export const slide1 = {
     <>
       <div className="w-full h-full flex flex-col gap-4 justify-center items-start ">
         <motion.h1
-          initial={{ y: -100 }}
-          animate={{ y: 0 }}
           transition={{ duration: 1 }}
           className="font-fancy text-4xl md:text-5xl lg:text-7xl max-w-lg "
         >
@@ -21,7 +19,7 @@ export const slide1 = {
           Complete simple micro tasks and get real money!
         </p>
         <Button asChild>
-          <Link to={"/"} className="bg-gradient-to-r from-primary to-accent/50">
+          <Link to={"/auth/register"} className="bg-gradient-to-r from-primary to-accent/50">
             Join Now
           </Link>
         </Button>

@@ -15,7 +15,7 @@ export const slide2 = {
         </p>
         <Button asChild>
           <Link
-            to={"/"}
+            to={"/dashboard/add-task"}
             className="bg-gradient-to-bl from-primary to-accent/60 "
           >
             Post a Job
